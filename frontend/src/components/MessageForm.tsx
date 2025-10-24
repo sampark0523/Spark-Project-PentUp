@@ -14,13 +14,13 @@ const presetColors = [
 ];
 
 export type MessageInput = {
-	to: string;
+	recipients: string;
 	body: string;
 	color: string;
 };
 
 export function MessageForm({ onSubmitted }: { onSubmitted?: () => void }) {
-	const [form, setForm] = React.useState<MessageInput>({ to: "", body: "", color: presetColors[3] });
+	const [form, setForm] = React.useState<MessageInput>({ recipients: "", body: "", color: presetColors[3] });
 	const [loading, setLoading] = React.useState(false);
 	const [error, setError] = React.useState<string | null>(null);
 
@@ -38,7 +38,7 @@ export function MessageForm({ onSubmitted }: { onSubmitted?: () => void }) {
 				const j = await res.json().catch(() => ({}));
 				throw new Error(j.error || `Request failed: ${res.status}`);
 			}
-			setForm({ to: "", body: "", color: presetColors[3] });
+			setForm({ recipients: "", body: "", color: presetColors[3] });
 			onSubmitted?.();
 		} catch (err: any) {
 			setError(err.message ?? "Something went wrong");
@@ -52,8 +52,8 @@ export function MessageForm({ onSubmitted }: { onSubmitted?: () => void }) {
 			<Stack spacing={2}>
 				<TextField
 					label="To"
-					value={form.to}
-					onChange={(e) => setForm((f) => ({ ...f, to: e.target.value }))}
+					value={form.recipients}
+					onChange={(e) => setForm((f) => ({ ...f, recipients: e.target.value }))}
 					required
 					fullWidth
 				/>

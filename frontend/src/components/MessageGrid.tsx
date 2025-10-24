@@ -22,7 +22,7 @@ export function MessageGrid() {
 				<Grid key={m.id} item xs={12} sm={6} md={4}>
 					<Card sx={{ bgcolor: m.color, color: "#111", minHeight: 140 }}>
 						<CardContent>
-							<Typography variant="subtitle2">To: {m.to}</Typography>
+							<Typography variant="subtitle2">To: {m.recipients}</Typography>
 							<Typography variant="body1" sx={{ mt: 1 }}>
 								{m.body}
 							</Typography>
