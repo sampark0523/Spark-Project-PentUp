@@ -29,7 +29,7 @@ export function createServerClient(): SupabaseClient {
 
 export type MessageRow = {
 	id: number;
-	to: string;
+	recipients: string;
 	body: string;
 	color: string;
 	created_at: string;
