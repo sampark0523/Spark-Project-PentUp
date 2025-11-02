@@ -8,75 +8,82 @@ import styles from "./LandingPage.module.css";
 
 export function LandingPage() {
 	return (
-		<Box className={styles.landingContainer}>
+		<div className={styles.landingContainer}>
 			{/* Orange glow effect */}
-			<Box className={styles.glowEffect} />
+			<div className={styles.glowEffect} />
 
 			{/* Navigation */}
-			<Box className={styles.navigation}>
+			<div className={styles.navigation}>
 				<Link href="#notes" className={styles.navLink}>notes</Link>
 				<Link href="#about" className={styles.navLink}>about</Link>
 				<Link href="#search" className={styles.navLink}>
 					<SearchIcon sx={{ fontSize: 18 }} />
 				</Link>
-			</Box>
+			</div>
 
 			{/* Stars */}
-			<Box className={styles.stars}>
-				<Box className={styles.star} style={{ top: '15%', left: '10%', transform: 'rotate(45deg) scale(0.6)' }}>★</Box>
-				<Box className={styles.star} style={{ top: '20%', left: '85%', transform: 'rotate(120deg) scale(0.5)' }}>★</Box>
-				<Box className={styles.star} style={{ top: '35%', left: '5%', transform: 'rotate(200deg) scale(0.7)' }}>★</Box>
-				<Box className={styles.star} style={{ top: '40%', left: '90%', transform: 'rotate(300deg) scale(0.6)' }}>★</Box>
-				<Box className={styles.star} style={{ top: '55%', left: '15%', transform: 'rotate(80deg) scale(0.5)' }}>★</Box>
-				<Box className={styles.star} style={{ top: '60%', left: '88%', transform: 'rotate(240deg) scale(0.6)' }}>★</Box>
-				<Box className={styles.star} style={{ top: '75%', left: '8%', transform: 'rotate(160deg) scale(0.7)' }}>★</Box>
-				<Box className={styles.star} style={{ top: '80%', left: '92%', transform: 'rotate(15deg) scale(0.5)' }}>★</Box>
-			</Box>
+			<div className={styles.stars}>
+				<div className={styles.star} style={{ top: '15%', left: '10%', transform: 'rotate(45deg) scale(0.6)' }}>★</div>
+				<div className={styles.star} style={{ top: '20%', left: '85%', transform: 'rotate(120deg) scale(0.5)' }}>★</div>
+				<div className={styles.star} style={{ top: '35%', left: '5%', transform: 'rotate(200deg) scale(0.7)' }}>★</div>
+				<div className={styles.star} style={{ top: '40%', left: '90%', transform: 'rotate(300deg) scale(0.6)' }}>★</div>
+				<div className={styles.star} style={{ top: '55%', left: '15%', transform: 'rotate(80deg) scale(0.5)' }}>★</div>
+				<div className={styles.star} style={{ top: '60%', left: '88%', transform: 'rotate(240deg) scale(0.6)' }}>★</div>
+				<div className={styles.star} style={{ top: '75%', left: '8%', transform: 'rotate(160deg) scale(0.7)' }}>★</div>
+				<div className={styles.star} style={{ top: '80%', left: '92%', transform: 'rotate(15deg) scale(0.5)' }}>★</div>
+			</div>
 
 			{/* Envelopes Container */}
-			<Box className={styles.envelopesContainer}>
+			<div className={styles.envelopesContainer}>
 				{/* Bottom envelope */}
-				<Box className={styles.envelopeBottom}>
+				<div className={styles.envelopeBottom}>
 					{/* Envelope background */}
-					<Box className={styles.envelopeBody} />
+					<div className={styles.envelopeBody} />
 					{/* Envelope flap */}
-					<Box className={styles.envelopeFlap} />
-				</Box>
+					<div className={styles.envelopeFlap} />
+				</div>
 
 				{/* Top envelope */}
-				<Box className={styles.envelopeTop}>
+				<div className={styles.envelopeTop}>
 					{/* Envelope background */}
-					<Box className={styles.envelopeBody}>
+					<div className={styles.envelopeBody}>
 						{/* Collection text */}
-						<Box className={styles.collectionText}>
+						<div className={styles.collectionText}>
 							A COLLECTION OF UNSENT MESSAGES
-						</Box>
+						</div>
 						
-						{/* Postage stamp with devil */}
-						<Box className={styles.postageStamp}>
-							<Box className={styles.stampCharacter}>👿</Box>
-						</Box>
+						{/* Postage stamp */}
+						<div className={styles.postageStamp}>
+							<img 
+								src="/Stamp.svg" 
+								alt="Stamp" 
+								className={styles.stampImage}
+							/>
+						</div>
 
 						{/* Pent Up Logo */}
-						<Box className={styles.logoContainer}>
-							<h1 className={styles.mainTitle}>
-								<span className={styles.pixelatedLarge}>P</span>
-								<span className={styles.pixelatedSmall}>ent</span>
-								{" "}
-								<span className={styles.pixelatedLarge}>U</span>
-								<span className={styles.pixelatedSmall}>p</span>
-							</h1>
-						</Box>
-					</Box>
+						<div className={styles.logoContainer}>
+							<img 
+								src="/Pent.svg" 
+								alt="Pent" 
+								className={styles.logoImage}
+							/>
+							<img 
+								src="/Up.svg" 
+								alt="Up" 
+								className={styles.logoImage}
+							/>
+						</div>
+					</div>
 					{/* Envelope flap */}
-					<Box className={styles.envelopeFlap} />
-				</Box>
-			</Box>
+					<div className={styles.envelopeFlap} />
+				</div>
+			</div>
 
 			{/* Edit Icon */}
-			<Box className={styles.editIcon}>
+			<div className={styles.editIcon}>
 				<EditIcon sx={{ fontSize: 24, color: '#888' }} />
-			</Box>
-		</Box>
+			</div>
+		</div>
 	);
 }

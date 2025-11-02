@@ -6,62 +6,67 @@ import styles from "./Footer.module.css";
 
 export function Footer() {
 	return (
-		<Box className={styles.footerContainer}>
+		<div className={styles.footerContainer}>
 			{/* Starburst decorations */}
-			<Box className={styles.starbursts}>
+			<div className={styles.starbursts}>
 				{/* Positioned starbursts around the title */}
-				<Box className={styles.starburst} style={{ top: '25%', left: '20%', transform: 'rotate(45deg) scale(0.5)' }}>
+				<div className={styles.starburst} style={{ top: '25%', left: '20%', transform: 'rotate(45deg) scale(0.5)' }}>
 					<svg width="24" height="24" viewBox="0 0 24 24" fill="white">
 						<path d="M12 2 L14 8 L20 8 L15 12 L17 18 L12 14 L7 18 L9 12 L4 8 L10 8 Z" />
 					</svg>
-				</Box>
-				<Box className={styles.starburst} style={{ top: '18%', left: '75%', transform: 'rotate(120deg) scale(0.4)' }}>
+				</div>
+				<div className={styles.starburst} style={{ top: '18%', left: '75%', transform: 'rotate(120deg) scale(0.4)' }}>
 					<svg width="24" height="24" viewBox="0 0 24 24" fill="white">
 						<path d="M12 2 L14 8 L20 8 L15 12 L17 18 L12 14 L7 18 L9 12 L4 8 L10 8 Z" />
 					</svg>
-				</Box>
-				<Box className={styles.starburst} style={{ top: '32%', left: '12%', transform: 'rotate(200deg) scale(0.6)' }}>
+				</div>
+				<div className={styles.starburst} style={{ top: '32%', left: '12%', transform: 'rotate(200deg) scale(0.6)' }}>
 					<svg width="24" height="24" viewBox="0 0 24 24" fill="white">
 						<path d="M12 2 L14 8 L20 8 L15 12 L17 18 L12 14 L7 18 L9 12 L4 8 L10 8 Z" />
 					</svg>
-				</Box>
-				<Box className={styles.starburst} style={{ top: '35%', left: '82%', transform: 'rotate(300deg) scale(0.5)' }}>
+				</div>
+				<div className={styles.starburst} style={{ top: '35%', left: '82%', transform: 'rotate(300deg) scale(0.5)' }}>
 					<svg width="24" height="24" viewBox="0 0 24 24" fill="white">
 						<path d="M12 2 L14 8 L20 8 L15 12 L17 18 L12 14 L7 18 L9 12 L4 8 L10 8 Z" />
 					</svg>
-				</Box>
-				<Box className={styles.starburst} style={{ top: '22%', left: '45%', transform: 'rotate(15deg) scale(0.4)' }}>
+				</div>
+				<div className={styles.starburst} style={{ top: '22%', left: '45%', transform: 'rotate(15deg) scale(0.4)' }}>
 					<svg width="24" height="24" viewBox="0 0 24 24" fill="white">
 						<path d="M12 2 L14 8 L20 8 L15 12 L17 18 L12 14 L7 18 L9 12 L4 8 L10 8 Z" />
 					</svg>
-				</Box>
-				<Box className={styles.starburst} style={{ top: '28%', left: '55%', transform: 'rotate(160deg) scale(0.45)' }}>
+				</div>
+				<div className={styles.starburst} style={{ top: '28%', left: '55%', transform: 'rotate(160deg) scale(0.45)' }}>
 					<svg width="24" height="24" viewBox="0 0 24 24" fill="white">
 						<path d="M12 2 L14 8 L20 8 L15 12 L17 18 L12 14 L7 18 L9 12 L4 8 L10 8 Z" />
 					</svg>
-				</Box>
-				<Box className={styles.starburst} style={{ top: '40%', left: '25%', transform: 'rotate(80deg) scale(0.5)' }}>
+				</div>
+				<div className={styles.starburst} style={{ top: '40%', left: '25%', transform: 'rotate(80deg) scale(0.5)' }}>
 					<svg width="24" height="24" viewBox="0 0 24 24" fill="white">
 						<path d="M12 2 L14 8 L20 8 L15 12 L17 18 L12 14 L7 18 L9 12 L4 8 L10 8 Z" />
 					</svg>
-				</Box>
-				<Box className={styles.starburst} style={{ top: '38%', left: '70%', transform: 'rotate(240deg) scale(0.4)' }}>
+				</div>
+				<div className={styles.starburst} style={{ top: '38%', left: '70%', transform: 'rotate(240deg) scale(0.4)' }}>
 					<svg width="24" height="24" viewBox="0 0 24 24" fill="white">
 						<path d="M12 2 L14 8 L20 8 L15 12 L17 18 L12 14 L7 18 L9 12 L4 8 L10 8 Z" />
 					</svg>
-				</Box>
-			</Box>
+				</div>
+			</div>
 
 			{/* Main Content */}
-			<Box className={styles.footerContent}>
+			<div className={styles.footerContent}>
 				{/* Pent Up Title */}
-				<h2 className={styles.footerTitle}>
-					<span className={styles.pixelatedLarge}>P</span>
-					<span className={styles.pixelatedSmall}>ent</span>
-					{" "}
-					<span className={styles.pixelatedLarge}>U</span>
-					<span className={styles.pixelatedSmall}>p</span>
-				</h2>
+				<Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
+					<img 
+						src="/Pent.svg" 
+						alt="Pent" 
+						className={styles.footerLogo}
+					/>
+					<img 
+						src="/Up.svg" 
+						alt="Up" 
+						className={styles.footerLogo}
+					/>
+				</Box>
 
 				{/* Tagline */}
 				<Typography className={styles.tagline} variant="body2">
@@ -69,7 +74,7 @@ export function Footer() {
 				</Typography>
 
 				{/* Social Links */}
-				<Box className={styles.socialLinks}>
+				<div className={styles.socialLinks}>
 					<Link href="https://instagram.com" target="_blank" className={styles.socialLink}>
 						Instagram
 					</Link>
@@ -89,7 +94,7 @@ export function Footer() {
 					<Link href="https://pennclubs.com" target="_blank" className={styles.socialLink}>
 						Penn Clubs
 					</Link>
-				</Box>
+				</div>
 
 				{/* Contact */}
 				<Typography className={styles.contact}>
@@ -98,7 +103,7 @@ export function Footer() {
 						upennspark@gmail.com
 					</Link>
 				</Typography>
-			</Box>
-		</Box>
+			</div>
+		</div>
 	);
 }
