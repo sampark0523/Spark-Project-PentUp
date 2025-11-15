@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
+import EmotionRegistry from "@/lib/emotion-cache";
 
 const theme = createTheme({
 	palette: {
@@ -12,9 +13,11 @@ const theme = createTheme({
 
 export function AppProviders({ children }: { children: React.ReactNode }) {
 	return (
-		<ThemeProvider theme={theme}>
-			<CssBaseline />
-			{children}
-		</ThemeProvider>
+		<EmotionRegistry>
+			<ThemeProvider theme={theme}>
+				<CssBaseline />
+				{children}
+			</ThemeProvider>
+		</EmotionRegistry>
 	);
 }
