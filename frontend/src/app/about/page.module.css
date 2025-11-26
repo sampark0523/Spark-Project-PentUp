@@ -277,6 +277,93 @@
   image-rendering: crisp-edges;
 }
 
+/* 
+ * POSITIONING STRATEGY FOR CONSISTENCY ACROSS POPUPS:
+ * 
+ * ABSOLUTE POSITIONING (current approach):
+ * - Pros: Precise pixel-level control, consistent placement relative to popup container
+ * - Cons: Requires popup images to have identical dimensions for true consistency
+ * - Best for: When all popup images are the same size (e.g., same SVG template)
+ * - Note: If popups scale differently, pixel values may not align correctly
+ * 
+ * RELATIVE POSITIONING:
+ * - Pros: More flexible, adapts to content flow, works with varying image sizes
+ * - Cons: Less precise control, positioning depends on document flow
+ * - Best for: When popup images vary in size or when you want text to flow naturally
+ * 
+ * RECOMMENDATION:
+ * For maximum consistency across popups, use ABSOLUTE positioning with PERCENTAGE values
+ * (e.g., top: 73.5%, left: 48.5%) rather than pixels. This ensures the link position
+ * scales proportionally with the popup image, maintaining consistent placement regardless
+ * of the popup's actual rendered size.
+ * 
+ * Current implementation uses absolute positioning with pixel values, which works well
+ * if all popup images have the same dimensions. If popup sizes vary, consider switching
+ * to percentage-based absolute positioning for better consistency.
+ */
+
+/* 
+ * LinkedIn link positioning for Sam popup
+ * Using absolute positioning with pixel values for precise placement
+ * Note: Absolute positioning works best when popup images have consistent dimensions.
+ * If popup sizes vary significantly, consider using percentage-based values instead.
+ */
+.samLinkedInLink {
+  position: absolute;
+  top: 537px;
+  left: 584px;
+  color: #000;
+  font-family: Helvetica, sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: auto;
+  text-decoration-thickness: auto;
+  text-underline-offset: auto;
+  text-underline-position: from-font;
+  z-index: 1001;
+  transition: opacity 0.2s ease;
+  white-space: nowrap;
+}
+
+.samLinkedInLink:hover {
+  opacity: 0.7;
+}
+
+/* 
+ * LinkedIn link positioning for Melody popup
+ * Using absolute positioning with pixel values for precise placement
+ * Note: Absolute positioning works best when popup images have consistent dimensions.
+ * If popup sizes vary significantly, consider using percentage-based values instead.
+ */
+.melodyLinkedInLink {
+  position: absolute;
+  top: 558px;
+  left: 584px;
+  color: #000;
+  font-family: Helvetica, sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: auto;
+  text-decoration-thickness: auto;
+  text-underline-offset: auto;
+  text-underline-position: from-font;
+  z-index: 1001;
+  transition: opacity 0.2s ease;
+  white-space: nowrap;
+}
+
+.melodyLinkedInLink:hover {
+  opacity: 0.7;
+}
+
 @media (max-width: 600px) {
   .popupContent {
     max-width: 95%;
@@ -285,6 +372,18 @@
   .exitButtonImage {
     max-width: 40px;
     max-height: 40px;
+  }
+  
+  .samLinkedInLink {
+    font-size: 16px;
+    top: 350px;
+    left: 400px;
+  }
+  
+  .melodyLinkedInLink {
+    font-size: 16px;
+    top: 350px;
+    left: 400px;
   }
 }
 

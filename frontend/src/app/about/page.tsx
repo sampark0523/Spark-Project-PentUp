@@ -16,13 +16,49 @@ const characters = [
 
 export default function AboutPage() {
   const [isFionaPopupOpen, setIsFionaPopupOpen] = useState(false);
+  const [isSamPopupOpen, setIsSamPopupOpen] = useState(false);
+  const [isGiaPopupOpen, setIsGiaPopupOpen] = useState(false);
+  const [isMelodyPopupOpen, setIsMelodyPopupOpen] = useState(false);
+  const [isZaraPopupOpen, setIsZaraPopupOpen] = useState(false);
 
   const handleFionaClick = () => {
     setIsFionaPopupOpen(true);
   };
 
-  const handleClosePopup = () => {
+  const handleSamClick = () => {
+    setIsSamPopupOpen(true);
+  };
+
+  const handleGiaClick = () => {
+    setIsGiaPopupOpen(true);
+  };
+
+  const handleMelodyClick = () => {
+    setIsMelodyPopupOpen(true);
+  };
+
+  const handleZaraClick = () => {
+    setIsZaraPopupOpen(true);
+  };
+
+  const handleCloseFionaPopup = () => {
     setIsFionaPopupOpen(false);
+  };
+
+  const handleCloseSamPopup = () => {
+    setIsSamPopupOpen(false);
+  };
+
+  const handleCloseGiaPopup = () => {
+    setIsGiaPopupOpen(false);
+  };
+
+  const handleCloseMelodyPopup = () => {
+    setIsMelodyPopupOpen(false);
+  };
+
+  const handleCloseZaraPopup = () => {
+    setIsZaraPopupOpen(false);
   };
 
   return (
@@ -54,8 +90,8 @@ export default function AboutPage() {
             {characters.filter(c => c.name === "Melody" || c.name === "Gia").map((character) => (
               <div 
                 key={character.name} 
-                className={`${styles.characterCard} ${character.name === "Fiona" ? styles.clickableCard : ""}`}
-                onClick={character.name === "Fiona" ? handleFionaClick : undefined}
+                className={`${styles.characterCard} ${character.name === "Fiona" || character.name === "Gia" || character.name === "Melody" ? styles.clickableCard : ""}`}
+                onClick={character.name === "Fiona" ? handleFionaClick : character.name === "Gia" ? handleGiaClick : character.name === "Melody" ? handleMelodyClick : undefined}
               >
                 <img
                   src={character.image}
@@ -75,8 +111,8 @@ export default function AboutPage() {
             {characters.filter(c => c.name === "Gordon" || c.name === "Ziana" || c.name === "Sam").map((character) => (
               <div 
                 key={character.name} 
-                className={`${styles.characterCard} ${character.name === "Fiona" ? styles.clickableCard : ""}`}
-                onClick={character.name === "Fiona" ? handleFionaClick : undefined}
+                className={`${styles.characterCard} ${character.name === "Fiona" || character.name === "Sam" ? styles.clickableCard : ""}`}
+                onClick={character.name === "Fiona" ? handleFionaClick : character.name === "Sam" ? handleSamClick : undefined}
               >
                 <img
                   src={character.image}
@@ -96,8 +132,8 @@ export default function AboutPage() {
             {characters.filter(c => c.name === "Fiona" || c.name === "Zara").map((character) => (
               <div 
                 key={character.name} 
-                className={`${styles.characterCard} ${character.name === "Fiona" ? styles.clickableCard : ""}`}
-                onClick={character.name === "Fiona" ? handleFionaClick : undefined}
+                className={`${styles.characterCard} ${character.name === "Fiona" || character.name === "Zara" ? styles.clickableCard : ""}`}
+                onClick={character.name === "Fiona" ? handleFionaClick : character.name === "Zara" ? handleZaraClick : undefined}
               >
                 <img
                   src={character.image}
@@ -151,10 +187,10 @@ export default function AboutPage() {
 
       {/* Fiona Popup Modal */}
       {isFionaPopupOpen && (
-        <div className={styles.popupOverlay} onClick={handleClosePopup}>
+        <div className={styles.popupOverlay} onClick={handleCloseFionaPopup}>
           <div className={styles.popupContent} onClick={(e) => e.stopPropagation()}>
             <div className={styles.popupImageContainer}>
-              <button className={styles.exitButton} onClick={handleClosePopup}>
+              <button className={styles.exitButton} onClick={handleCloseFionaPopup}>
                 <img
                   src="/assets/exit_button/exit button.png"
                   alt="Close"
@@ -164,6 +200,110 @@ export default function AboutPage() {
               <img
                 src="/assets/about_fiona_popup/Pop-up%20about.svg"
                 alt="Fiona Popup"
+                className={styles.popupImage}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Sam Popup Modal */}
+      {isSamPopupOpen && (
+        <div className={styles.popupOverlay} onClick={handleCloseSamPopup}>
+          <div className={styles.popupContent} onClick={(e) => e.stopPropagation()}>
+            <div className={styles.popupImageContainer}>
+              <button className={styles.exitButton} onClick={handleCloseSamPopup}>
+                <img
+                  src="/assets/exit_button/exit button.png"
+                  alt="Close"
+                  className={styles.exitButtonImage}
+                />
+              </button>
+              <img
+                src="/assets/about_sam_popup/sam%20Pop-up%20about.svg"
+                alt="Sam Popup"
+                className={styles.popupImage}
+              />
+              <a
+                href="https://www.linkedin.com/in/seohyun-sam-park-54796828b/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.samLinkedInLink}
+              >
+                @Seohyun (Sam) Park
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Gia Popup Modal */}
+      {isGiaPopupOpen && (
+        <div className={styles.popupOverlay} onClick={handleCloseGiaPopup}>
+          <div className={styles.popupContent} onClick={(e) => e.stopPropagation()}>
+            <div className={styles.popupImageContainer}>
+              <button className={styles.exitButton} onClick={handleCloseGiaPopup}>
+                <img
+                  src="/assets/exit_button/exit button.png"
+                  alt="Close"
+                  className={styles.exitButtonImage}
+                />
+              </button>
+              <img
+                src="/assets/about_gia_popup/Gia%20Pop-up%20about.svg"
+                alt="Gia Popup"
+                className={styles.popupImage}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Melody Popup Modal */}
+      {isMelodyPopupOpen && (
+        <div className={styles.popupOverlay} onClick={handleCloseMelodyPopup}>
+          <div className={styles.popupContent} onClick={(e) => e.stopPropagation()}>
+            <div className={styles.popupImageContainer}>
+              <button className={styles.exitButton} onClick={handleCloseMelodyPopup}>
+                <img
+                  src="/assets/exit_button/exit button.png"
+                  alt="Close"
+                  className={styles.exitButtonImage}
+                />
+              </button>
+              <img
+                src="/assets/about_melody_popup/Melody%20Pop-up%20about.png"
+                alt="Melody Popup"
+                className={styles.popupImage}
+              />
+              <a
+                href="https://www.linkedin.com/in/melody-zhang-90605b217/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.melodyLinkedInLink}
+              >
+                @Melody Zhang
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Zara Popup Modal */}
+      {isZaraPopupOpen && (
+        <div className={styles.popupOverlay} onClick={handleCloseZaraPopup}>
+          <div className={styles.popupContent} onClick={(e) => e.stopPropagation()}>
+            <div className={styles.popupImageContainer}>
+              <button className={styles.exitButton} onClick={handleCloseZaraPopup}>
+                <img
+                  src="/assets/exit_button/exit button.png"
+                  alt="Close"
+                  className={styles.exitButtonImage}
+                />
+              </button>
+              <img
+                src="/assets/about_zara_popup/Pop-up%20about.png"
+                alt="Zara Popup"
                 className={styles.popupImage}
               />
             </div>
