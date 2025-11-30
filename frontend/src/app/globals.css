@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Lower Pixel';
+  src: url('/fonts/LowerPixel-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;

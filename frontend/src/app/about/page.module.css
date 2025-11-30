@@ -1,0 +1,499 @@
+.aboutContainer {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  background-image: url("/assets/about_background/orange_gradient.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Fixed Home Button */
+.homeButton {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 100;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  display: block;
+}
+
+.homeButton:hover {
+  transform: scale(1.05);
+}
+
+.homeButtonImage {
+  width: auto;
+  height: auto;
+  max-width: 260px;
+  max-height: 260px;
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .homeButton {
+    top: 15px;
+    left: 15px;
+  }
+  
+  .homeButtonImage {
+    max-width: 80px;
+    max-height: 80px;
+  }
+}
+
+.contentWrapper {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 100vh;
+  padding: 120px 40px 40px 40px;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+@media (max-width: 1200px) {
+  .contentWrapper {
+    flex-direction: column;
+    padding: 30px;
+    gap: 30px;
+  }
+}
+
+@media (max-width: 600px) {
+  .contentWrapper {
+    padding: 20px;
+    gap: 20px;
+  }
+}
+
+.aboutPanel {
+  flex: 0 0 auto;
+  width: 40%;
+  max-width: 600px;
+  margin-left: 50px;
+}
+
+@media (max-width: 1200px) {
+  .aboutPanel {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.aboutCard {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  display: block;
+}
+
+.charactersSection {
+  margin-top: 80px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-content: start;
+  margin-left: 130px;
+}
+
+.characterRow {
+  display: flex;
+  gap: 80px;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+@media (max-width: 1200px) {
+  .charactersSection {
+    width: 100%;
+    gap: 25px;
+    margin-left: 0;
+  }
+  
+  .characterRow {
+    gap: 25px;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 600px) {
+  .charactersSection {
+    gap: 20px;
+  }
+  
+  .characterRow {
+    gap: 20px;
+  }
+}
+
+.characterCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s;
+  flex: 0 0 auto;
+  width: 125px;
+}
+
+.clickableCard {
+  cursor: pointer;
+}
+
+.characterCard:hover {
+  transform: scale(1.05);
+}
+
+.characterImage {
+  width: 70%;
+  max-width: 125px;
+  height: auto;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  margin-bottom: 8px;
+}
+
+.characterInfo {
+  text-align: center;
+  color: #4a2e1a;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.characterName {
+  font-family: "Lower Pixel", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 33px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+  margin-bottom: 2px;
+}
+
+.characterRole {
+  font-family: "Lower Pixel", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 33px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+}
+
+/* Popup Modal Styles */
+.popupOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.popupContent {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: scaleIn 0.2s ease-out;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.popupImageContainer {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  max-height: 90vh;
+}
+
+.popupImage {
+  max-width: 100%;
+  max-height: 90vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.exitButton {
+  position: absolute;
+  top: 3.70%;
+  right: 2.25%;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.exitButton:hover {
+  transform: scale(1.1);
+}
+
+.exitButtonImage {
+  width: auto;
+  height: auto;
+  max-width: 70px;
+  max-height: 70px;
+  display: block;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+/* 
+ * POSITIONING STRATEGY FOR CONSISTENCY ACROSS POPUPS:
+ * 
+ * ABSOLUTE POSITIONING (current approach):
+ * - Pros: Precise pixel-level control, consistent placement relative to popup container
+ * - Cons: Requires popup images to have identical dimensions for true consistency
+ * - Best for: When all popup images are the same size (e.g., same SVG template)
+ * - Note: If popups scale differently, pixel values may not align correctly
+ * 
+ * RELATIVE POSITIONING:
+ * - Pros: More flexible, adapts to content flow, works with varying image sizes
+ * - Cons: Less precise control, positioning depends on document flow
+ * - Best for: When popup images vary in size or when you want text to flow naturally
+ * 
+ * RECOMMENDATION:
+ * For maximum consistency across popups, use ABSOLUTE positioning with PERCENTAGE values
+ * (e.g., top: 73.5%, left: 48.5%) rather than pixels. This ensures the link position
+ * scales proportionally with the popup image, maintaining consistent placement regardless
+ * of the popup's actual rendered size.
+ * 
+ * Current implementation uses absolute positioning with pixel values, which works well
+ * if all popup images have the same dimensions. If popup sizes vary, consider switching
+ * to percentage-based absolute positioning for better consistency.
+ */
+
+/* 
+ * LinkedIn link positioning for Sam popup
+ * Using absolute positioning with pixel values for precise placement
+ * Note: Absolute positioning works best when popup images have consistent dimensions.
+ * If popup sizes vary significantly, consider using percentage-based values instead.
+ */
+.samLinkedInLink {
+  position: absolute;
+  top: 537px;
+  left: 584px;
+  color: #000;
+  font-family: Helvetica, sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: auto;
+  text-decoration-thickness: auto;
+  text-underline-offset: auto;
+  text-underline-position: from-font;
+  z-index: 1001;
+  transition: opacity 0.2s ease;
+  white-space: nowrap;
+}
+
+.samLinkedInLink:hover {
+  opacity: 0.7;
+}
+
+/* 
+ * LinkedIn link positioning for Melody popup
+ * Using absolute positioning with pixel values for precise placement
+ * Note: Absolute positioning works best when popup images have consistent dimensions.
+ * If popup sizes vary significantly, consider using percentage-based values instead.
+ */
+.melodyLinkedInLink {
+  position: absolute;
+  top: 558px;
+  left: 584px;
+  color: #000;
+  font-family: Helvetica, sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: auto;
+  text-decoration-thickness: auto;
+  text-underline-offset: auto;
+  text-underline-position: from-font;
+  z-index: 1001;
+  transition: opacity 0.2s ease;
+  white-space: nowrap;
+}
+
+.melodyLinkedInLink:hover {
+  opacity: 0.7;
+}
+
+@media (max-width: 600px) {
+  .popupContent {
+    max-width: 95%;
+  }
+  
+  .exitButtonImage {
+    max-width: 40px;
+    max-height: 40px;
+  }
+  
+  .samLinkedInLink {
+    font-size: 16px;
+    top: 350px;
+    left: 400px;
+  }
+  
+  .melodyLinkedInLink {
+    font-size: 16px;
+    top: 350px;
+    left: 400px;
+  }
+}
+
+/* Contact Info Section */
+.contactInfoSection {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 0;
+  margin-top: auto;
+}
+
+.contactInfoImage {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.contactInfoOverlay {
+  position: absolute;
+  bottom: 150px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  z-index: 2;
+}
+
+.contactLinks {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.contactLink {
+  color: #000;
+  text-align: center;
+  font-family: Helvetica, sans-serif;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: auto;
+  text-decoration-thickness: auto;
+  text-underline-offset: auto;
+  text-underline-position: from-font;
+  transition: opacity 0.2s ease;
+}
+
+.contactLink:hover {
+  opacity: 0.7;
+}
+
+.contactSeparator {
+  color: #000;
+  font-family: Helvetica, sans-serif;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0 2px;
+}
+
+.contactEmail {
+  color: #000;
+  text-align: center;
+  font-family: Helvetica, sans-serif;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.contactEmail .contactLink {
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: auto;
+  text-decoration-thickness: auto;
+  text-underline-offset: auto;
+  text-underline-position: from-font;
+}
+
+@media (max-width: 600px) {
+  .contactInfoOverlay {
+    padding: 30px 15px;
+  }
+  
+  .contactLink {
+    font-size: 20px;
+  }
+  
+  .contactSeparator {
+    font-size: 20px;
+  }
+  
+  .contactEmail {
+    font-size: 20px;
+  }
+}
+
