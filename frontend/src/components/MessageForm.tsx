@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Box, Button, MenuItem, Stack, TextField } from "@mui/material";
+import { Box, Button, MenuItem, Stack, TextField, Alert } from "@mui/material";
 import { AuthModal } from "./AuthModal";
 import { getBrowserClient } from "@/lib/supabase";
 
@@ -25,6 +25,7 @@ export function MessageForm({ onSubmitted }: { onSubmitted?: () => void }) {
 	const [form, setForm] = React.useState<MessageInput>({ recipients: "", body: "", color: presetColors[3] });
 	const [loading, setLoading] = React.useState(false);
 	const [error, setError] = React.useState<string | null>(null);
+	const [infoMessage, setInfoMessage] = React.useState<string | null>(null);
 	const [showAuthModal, setShowAuthModal] = React.useState(false);
 	const [isAuthenticated, setIsAuthenticated] = React.useState(false);
 
@@ -66,6 +67,7 @@ export function MessageForm({ onSubmitted }: { onSubmitted?: () => void }) {
 
 		setLoading(true);
 		setError(null);
+		setInfoMessage(null);
 		try {
 			const res = await fetch(`/api/messages`, {
 				method: "POST",
@@ -79,8 +81,18 @@ export function MessageForm({ onSubmitted }: { onSubmitted?: () => void }) {
 				const j = await res.json().catch(() => ({}));
 				throw new Error(j.error || `Request failed: ${res.status}`);
 			}
+			const responseData = await res.json();
+			
+			// Always clear the form after successful submission
 			setForm({ recipients: "", body: "", color: presetColors[3] });
-			onSubmitted?.();
+			
+			// Check if there's a message in the response (e.g., approval pending)
+			if (responseData.message) {
+				setInfoMessage(responseData.message);
+			} else {
+				// Close form if message was successfully posted
+				onSubmitted?.();
+			}
 		} catch (err: any) {
 			setError(err.message ?? "Something went wrong");
 		} finally {
@@ -127,6 +139,11 @@ export function MessageForm({ onSubmitted }: { onSubmitted?: () => void }) {
 						{loading ? "Submitting..." : "Submit"}
 					</Button>
 					{error && <Box sx={{ color: "error.main", fontSize: 14 }}>{error}</Box>}
+					{infoMessage && (
+						<Alert severity="info" onClose={() => setInfoMessage(null)}>
+							{infoMessage}
+						</Alert>
+					)}
 				</Stack>
 			</Box>
 
