@@ -1,8 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { Box, Link } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
 import styles from "./LandingPage.module.css";
 
 export function LandingPage({ onAddClick }: { onAddClick?: () => void }) {
@@ -10,15 +8,6 @@ export function LandingPage({ onAddClick }: { onAddClick?: () => void }) {
 		<div className={styles.landingContainer}>
 			{/* Orange glow effect */}
 			<div className={styles.glowEffect} />
-
-			{/* Navigation */}
-			<div className={styles.navigation}>
-				<Link href="#notes" className={styles.navLink}>notes</Link>
-				<Link href="#about" className={styles.navLink}>about</Link>
-				<Link href="#search" className={styles.navLink}>
-					<SearchIcon sx={{ fontSize: 18 }} />
-				</Link>
-			</div>
 
 			{/* Envelopes Container */}
 			<div className={styles.envelopesContainer}>
