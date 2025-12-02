@@ -20,6 +20,8 @@ export default function AboutPage() {
   const [isGiaPopupOpen, setIsGiaPopupOpen] = useState(false);
   const [isMelodyPopupOpen, setIsMelodyPopupOpen] = useState(false);
   const [isZaraPopupOpen, setIsZaraPopupOpen] = useState(false);
+  const [isGordonPopupOpen, setIsGordonPopupOpen] = useState(false);
+  const [isZianaPopupOpen, setIsZianaPopupOpen] = useState(false);
 
   const handleFionaClick = () => {
     setIsFionaPopupOpen(true);
@@ -41,6 +43,14 @@ export default function AboutPage() {
     setIsZaraPopupOpen(true);
   };
 
+  const handleGordonClick = () => {
+    setIsGordonPopupOpen(true);
+  };
+
+  const handleZianaClick = () => {
+    setIsZianaPopupOpen(true);
+  };
+
   const handleCloseFionaPopup = () => {
     setIsFionaPopupOpen(false);
   };
@@ -59,6 +69,14 @@ export default function AboutPage() {
 
   const handleCloseZaraPopup = () => {
     setIsZaraPopupOpen(false);
+  };
+
+  const handleCloseGordonPopup = () => {
+    setIsGordonPopupOpen(false);
+  };
+
+  const handleCloseZianaPopup = () => {
+    setIsZianaPopupOpen(false);
   };
 
   return (
@@ -111,8 +129,8 @@ export default function AboutPage() {
             {characters.filter(c => c.name === "Gordon" || c.name === "Ziana" || c.name === "Sam").map((character) => (
               <div 
                 key={character.name} 
-                className={`${styles.characterCard} ${character.name === "Fiona" || character.name === "Sam" ? styles.clickableCard : ""}`}
-                onClick={character.name === "Fiona" ? handleFionaClick : character.name === "Sam" ? handleSamClick : undefined}
+                className={`${styles.characterCard} ${character.name === "Fiona" || character.name === "Sam" || character.name === "Gordon" || character.name === "Ziana" ? styles.clickableCard : ""}`}
+                onClick={character.name === "Fiona" ? handleFionaClick : character.name === "Sam" ? handleSamClick : character.name === "Gordon" ? handleGordonClick : character.name === "Ziana" ? handleZianaClick : undefined}
               >
                 <img
                   src={character.image}
@@ -306,6 +324,58 @@ export default function AboutPage() {
                 alt="Zara Popup"
                 className={styles.popupImage}
               />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Gordon Popup Modal */}
+      {isGordonPopupOpen && (
+        <div className={styles.popupOverlay} onClick={handleCloseGordonPopup}>
+          <div className={styles.popupContent} onClick={(e) => e.stopPropagation()}>
+            <div className={styles.popupImageContainer}>
+              <button className={styles.exitButton} onClick={handleCloseGordonPopup}>
+                <img
+                  src="/assets/exit_button/exit button.png"
+                  alt="Close"
+                  className={styles.exitButtonImage}
+                />
+              </button>
+              <img
+                src="/assets/about_gordon_popup/gordon_popup.svg"
+                alt="Gordon Popup"
+                className={styles.popupImage}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Ziana Popup Modal */}
+      {isZianaPopupOpen && (
+        <div className={styles.popupOverlay} onClick={handleCloseZianaPopup}>
+          <div className={styles.popupContent} onClick={(e) => e.stopPropagation()}>
+            <div className={styles.popupImageContainer}>
+              <button className={styles.exitButton} onClick={handleCloseZianaPopup}>
+                <img
+                  src="/assets/exit_button/exit button.png"
+                  alt="Close"
+                  className={styles.exitButtonImage}
+                />
+              </button>
+              <img
+                src="/assets/about_ziana_popup/ziana_popup.png"
+                alt="Ziana Popup"
+                className={styles.popupImage}
+              />
+              <a
+                href="https://www.linkedin.com/in/ziana-sundrani/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.zianaLinkedInLink}
+              >
+                @ZianaSundrani
+              </a>
             </div>
           </div>
         </div>

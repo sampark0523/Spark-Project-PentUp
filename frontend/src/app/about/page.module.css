@@ -364,6 +364,37 @@
   opacity: 0.7;
 }
 
+/* 
+ * LinkedIn link positioning for Ziana popup
+ * Using absolute positioning with pixel values for precise placement
+ * Note: Absolute positioning works best when popup images have consistent dimensions.
+ * If popup sizes vary significantly, consider using percentage-based values instead.
+ */
+.zianaLinkedInLink {
+  position: absolute;
+  top: 540px;
+  left: 584px;
+  color: #000;
+  font-family: Helvetica, sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: auto;
+  text-decoration-thickness: auto;
+  text-underline-offset: auto;
+  text-underline-position: from-font;
+  z-index: 1001;
+  transition: opacity 0.2s ease;
+  white-space: nowrap;
+}
+
+.zianaLinkedInLink:hover {
+  opacity: 0.7;
+}
+
 @media (max-width: 600px) {
   .popupContent {
     max-width: 95%;
@@ -381,6 +412,12 @@
   }
   
   .melodyLinkedInLink {
+    font-size: 16px;
+    top: 350px;
+    left: 400px;
+  }
+  
+  .zianaLinkedInLink {
     font-size: 16px;
     top: 350px;
     left: 400px;
