@@ -19,6 +19,9 @@ To run the Detoxify model:
    
    # 3. Deploy the function
    npx supabase functions deploy moderate-message
-   npx supabase functions deploy approve-message    
+   
+   npx supabase functions deploy approve-message   
+   
    npx supabase functions deploy reject-message
+   
    npx supabase functions deploy send-approval-email
