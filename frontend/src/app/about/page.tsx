@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import styles from "./page.module.css";
+import { HomeButton } from "@/components/HomeButton";
 
 const characters = [
   { name: "Melody", role: "Project Lead", image: "/assets/about_characters/melody.png" },
@@ -82,13 +82,7 @@ export default function AboutPage() {
   return (
     <div className={styles.aboutContainer}>
       {/* Fixed Home Button */}
-      <Link href="/" className={styles.homeButton}>
-        <img
-          src="/assets/home_button/home_stamp.png"
-          alt="Return Home"
-          className={styles.homeButtonImage}
-        />
-      </Link>
+      <HomeButton />
 
       {/* Main content wrapper */}
       <div className={styles.contentWrapper}>

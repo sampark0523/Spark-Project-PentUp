@@ -3,6 +3,7 @@
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getBrowserClient } from "@/lib/supabase";
+import { HomeButton } from "@/components/HomeButton";
 
 export default function RejectPage() {
 	const params = useParams();
@@ -63,14 +64,16 @@ export default function RejectPage() {
 	}, [messageId]);
 
 	return (
-		<div style={{ 
-			fontFamily: "Arial, sans-serif", 
-			padding: "40px 20px", 
-			textAlign: "center",
-			maxWidth: "600px",
-			margin: "0 auto"
-		}}>
-			{status === "loading" && (
+		<>
+			<HomeButton />
+			<div style={{
+				fontFamily: "Arial, sans-serif",
+				padding: "40px 20px",
+				textAlign: "center",
+				maxWidth: "600px",
+				margin: "0 auto"
+			}}>
+				{status === "loading" && (
 				<>
 					<h1>Rejecting message...</h1>
 					<p>Please wait...</p>
@@ -88,7 +91,8 @@ export default function RejectPage() {
 					<p>{message}</p>
 				</>
 			)}
-		</div>
+			</div>
+		</>
 	);
 }
 

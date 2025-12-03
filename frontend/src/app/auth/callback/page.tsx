@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Box, CircularProgress, Typography, Alert } from "@mui/material";
 import { getBrowserClient } from "@/lib/supabase";
 import { isUPennEmail } from "@/lib/auth";
+import { HomeButton } from "@/components/HomeButton";
 
 export default function AuthCallbackPage() {
 	const router = useRouter();
@@ -82,8 +83,46 @@ export default function AuthCallbackPage() {
 					}
 				}
 
-				console.log("Authentication successful! Redirecting...");
-				// Success! Redirect to home page
+				console.log("Authentication successful!");
+
+				// Check if there's a pending message to submit
+				const pendingMessageStr = localStorage.getItem('pendingMessage');
+				if (pendingMessageStr) {
+					try {
+						const pendingMessage = JSON.parse(pendingMessageStr);
+						console.log("Found pending message, submitting:", pendingMessage);
+
+						// Get the current session for the auth token
+						const { data: { session: currentSession } } = await supabase.auth.getSession();
+
+						if (currentSession) {
+							// Submit the pending message
+							const res = await fetch('/api/messages', {
+								method: 'POST',
+								headers: {
+									'Content-Type': 'application/json',
+									'Authorization': `Bearer ${currentSession.access_token}`,
+								},
+								body: JSON.stringify({
+									recipients: pendingMessage.recipient,
+									body: pendingMessage.message,
+									color: pendingMessage.color,
+								}),
+							});
+
+							if (res.ok) {
+								console.log("Pending message submitted successfully!");
+								localStorage.removeItem('pendingMessage');
+							} else {
+								console.error("Failed to submit pending message:", await res.text());
+							}
+						}
+					} catch (err) {
+						console.error("Error submitting pending message:", err);
+					}
+				}
+
+				// Redirect to home page
 				router.push("/");
 			} catch (err: any) {
 				console.error("Auth callback error:", err);
@@ -95,16 +134,18 @@ export default function AuthCallbackPage() {
 	}, [router, searchParams]);
 
 	return (
-		<Box
-			sx={{
-				minHeight: "100vh",
-				display: "flex",
-				alignItems: "center",
-				justifyContent: "center",
-				bgcolor: "#f5e6d3",
-			}}
-		>
-			{error ? (
+		<>
+			<HomeButton />
+			<Box
+				sx={{
+					minHeight: "100vh",
+					display: "flex",
+					alignItems: "center",
+					justifyContent: "center",
+					bgcolor: "#f5e6d3",
+				}}
+			>
+				{error ? (
 				<Alert severity="error" sx={{ maxWidth: 400 }}>
 					<Typography variant="h6">Authentication Failed</Typography>
 					<Typography variant="body2" sx={{ mt: 1 }}>
@@ -119,6 +160,7 @@ export default function AuthCallbackPage() {
 					</Typography>
 				</Box>
 			)}
-		</Box>
+			</Box>
+		</>
 	);
 }

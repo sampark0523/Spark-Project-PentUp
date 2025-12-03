@@ -1,0 +1,33 @@
+.homeButton {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	z-index: 100;
+	cursor: pointer;
+	transition: transform 0.2s ease;
+	display: block;
+}
+
+.homeButton:hover {
+	transform: scale(1.05);
+}
+
+.homeButtonImage {
+	width: auto;
+	height: auto;
+	max-width: 260px;
+	max-height: 260px;
+	display: block;
+}
+
+@media (max-width: 600px) {
+	.homeButton {
+		top: 15px;
+		left: 15px;
+	}
+
+	.homeButtonImage {
+		max-width: 80px;
+		max-height: 80px;
+	}
+}

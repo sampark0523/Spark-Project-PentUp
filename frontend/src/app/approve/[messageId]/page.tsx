@@ -3,6 +3,7 @@
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getBrowserClient } from "@/lib/supabase";
+import { HomeButton } from "@/components/HomeButton";
 
 export default function ApprovePage() {
 	const params = useParams();
@@ -63,14 +64,16 @@ export default function ApprovePage() {
 	}, [messageId]);
 
 	return (
-		<div style={{ 
-			fontFamily: "Arial, sans-serif", 
-			padding: "40px 20px", 
-			textAlign: "center",
-			maxWidth: "600px",
-			margin: "0 auto"
-		}}>
-			{status === "loading" && (
+		<>
+			<HomeButton />
+			<div style={{
+				fontFamily: "Arial, sans-serif",
+				padding: "40px 20px",
+				textAlign: "center",
+				maxWidth: "600px",
+				margin: "0 auto"
+			}}>
+				{status === "loading" && (
 				<>
 					<h1>Approving message...</h1>
 					<p>Please wait...</p>
@@ -89,7 +92,8 @@ export default function ApprovePage() {
 					<p>{message}</p>
 				</>
 			)}
-		</div>
+			</div>
+		</>
 	);
 }
 
