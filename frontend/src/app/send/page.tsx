@@ -127,8 +127,7 @@ export default function SendMessagePage() {
 			sx={{
 				minHeight: "100vh",
 				height: "100vh",
-				background: `url(/assets/paper.svg) #F5D7B8 50% / cover no-repeat`,
-				backgroundBlendMode: "color-burn",
+				background: `url(/assets/add-message-bg.png) center / cover no-repeat`,
 				position: "relative",
 				overflow: "hidden",
 			}}
@@ -290,7 +289,12 @@ export default function SendMessagePage() {
 								type="text"
 								placeholder="Enter Initials"
 								value={recipient}
-								onChange={(e) => setRecipient(e.target.value)}
+								onChange={(e) => {
+									// Only allow letters and limit to 3 characters
+									const value = e.target.value.toUpperCase().replace(/[^A-Z]/g, '').slice(0, 3);
+									setRecipient(value);
+								}}
+								maxLength={3}
 								className="recipient-input"
 								style={{
 									flex: 1,
@@ -444,7 +448,7 @@ export default function SendMessagePage() {
 				{/* Submit Button */}
 				<Box sx={{
 					position: "absolute",
-					bottom: 60,
+					bottom: -50,
 					left: "50%",
 					transform: "translateX(-50%)",
 					display: "flex",
@@ -459,7 +463,7 @@ export default function SendMessagePage() {
 							position: "relative",
 							px: 6,
 							py: 2.5,
-							bgcolor: "#5a5a5a",
+							bgcolor: "#737373",
 							borderRadius: "8px",
 							cursor: (!loading && recipient && message) ? "pointer" : "not-allowed",
 							opacity: (!loading && recipient && message) ? 1 : 0.5,

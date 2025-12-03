@@ -3,83 +3,12 @@
 	min-height: 100vh;
 	width: 100%;
 	display: flex;
-	align-items: center;
+	align-items: flex-start;
 	justify-content: center;
 	background: #f5e6d3;
 	position: relative;
 	overflow: hidden;
-	padding: 40px;
-}
-
-.landingContainer::before {
-	content: '';
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-image: url("/assets/paper.jpg");
-	background-size: cover;
-	background-position: center;
-	background-repeat: no-repeat;
-	filter: brightness(1.15) contrast(0.95);
-	pointer-events: none;
-	z-index: 0;
-}
-
-.landingContainer::after {
-	content: '';
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background: rgba(237, 237, 237, 0.75);
-	pointer-events: none;
-	z-index: 0;
-}
-
-@media (max-width: 600px) {
-	.landingContainer {
-		padding: 20px;
-		min-height: 100vh;
-	}
-}
-
-/* Orange glow effect */
-.glowEffect {
-	position: absolute;
-	top: 60%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	/* Width ratio: 984/1127 = 0.873 (ellipse is 87.3% of envelopes width) */
-	/* Height ratio: 982/684 = 1.437 (ellipse height relative to envelopes height) */
-
-	width: 1000px;
-	max-width: 1000px;
-	height: 950px;
-	max-height: 950px;
-	background-image: url("/assets/orange_ellipse.png");
-	background-size: contain;
-	background-position: center;
-	background-repeat: no-repeat;
-	opacity: 0.9;
-	pointer-events: none;
-	z-index: 1;
-}
-
-@media (max-width: 1000px) {
-	.glowEffect {
-		width: 90vw;
-		max-width: 900px;
-	}
-}
-
-@media (max-width: 600px) {
-	.glowEffect {
-		width: 90vw;
-		max-width: 90vw;
-	}
+	padding: 0;
 }
 
 /* Navigation */
@@ -146,25 +75,19 @@
 	position: relative;
 	z-index: 5;
 	width: 100%;
-	max-width: 800px;
 	height: auto;
 	display: flex;
-	align-items: center;
-	justify-content: center;
+	align-items: flex-start;
+	justify-content: flex-start;
 }
 
 .envelopesImage {
 	width: 100%;
 	height: auto;
-	object-fit: contain;
+	display: block;
+	object-fit: cover;
+	object-position: top;
 	filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
-}
-
-@media (max-width: 600px) {
-	.envelopesContainer {
-		max-width: 90%;
-		padding: 0 20px;
-	}
 }
 
 /* Collection text */
@@ -286,8 +209,8 @@
 /* Add Button */
 .addButton {
 	position: absolute;
-	bottom: 40px;
-	left: 40px;
+	bottom: 200px;
+	left: 50px;
 	z-index: 10;
 	background: none;
 	border: none;
@@ -315,8 +238,8 @@
 
 @media (max-width: 600px) {
 	.addButton {
-		bottom: 20px;
-		left: 20px;
+		bottom: 0;
+		left: 0;
 	}
 }
 
