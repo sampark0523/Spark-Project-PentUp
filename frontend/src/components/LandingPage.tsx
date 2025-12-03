@@ -13,30 +13,26 @@ export function LandingPage({ onAddClick }: { onAddClick?: () => void }) {
 
 	return (
 		<div className={styles.landingContainer}>
-			{/* Orange glow effect */}
-			<div className={styles.glowEffect} />
-
 			{/* Envelopes Container */}
 			<div className={styles.envelopesContainer}>
 				<img
-					src="/assets/envelopes.png"
-					alt="Envelopes"
+					src="/assets/landing-header.png"
+					alt="Landing Header"
 					className={styles.envelopesImage}
 				/>
+				{/* Add Button */}
+				<button
+					className={styles.addButton}
+					onClick={handleAddClick}
+					aria-label="Add message"
+				>
+					<img
+						src="/assets/add.png"
+						alt="Add"
+						className={styles.addButtonImage}
+					/>
+				</button>
 			</div>
-
-			{/* Add Button */}
-			<button
-				className={styles.addButton}
-				onClick={handleAddClick}
-				aria-label="Add message"
-			>
-				<img
-					src="/assets/add.png"
-					alt="Add"
-					className={styles.addButtonImage}
-				/>
-			</button>
 		</div>
 	);
 }
