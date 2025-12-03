@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Typography, Snackbar, Alert } from "@mui/material";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { getBrowserClient } from "@/lib/supabase";
@@ -17,6 +17,8 @@ export default function SendMessagePage() {
 	const [loading, setLoading] = React.useState(false);
 	const [error, setError] = React.useState<string | null>(null);
 	const [showAuthModal, setShowAuthModal] = React.useState(false);
+	const [flaggedMessage, setFlaggedMessage] = React.useState<string | null>(null);
+	const [showFlaggedPopup, setShowFlaggedPopup] = React.useState(false);
 
 	const catIcons = [
 		{ image: "/assets/cat-icons/image 4.svg", color: "#81C700" }, // bright green
@@ -37,6 +39,17 @@ export default function SendMessagePage() {
 			console.log("Session cleared on page load");
 		};
 		clearSession();
+	}, []);
+
+	// Check for flagged message in localStorage on page load
+	React.useEffect(() => {
+		const flaggedMsg = localStorage.getItem('flaggedMessage');
+		if (flaggedMsg) {
+			setFlaggedMessage(flaggedMsg);
+			setShowFlaggedPopup(true);
+			// Clear it from localStorage after showing
+			localStorage.removeItem('flaggedMessage');
+		}
 	}, []);
 
 	const handleSubmit = async () => {
@@ -110,11 +123,25 @@ export default function SendMessagePage() {
 				throw new Error(j.error || `Request failed: ${res.status}`);
 			}
 
-			// Success - clear form and redirect
-			setRecipient("");
-			setMessage("");
-			setSelectedCat(0);
-			router.push("/");
+			const responseData = await res.json();
+			
+			// Check if message was flagged
+			if (responseData.message && responseData.message.includes("flagged")) {
+				// Store flagged message in localStorage so it persists after redirect
+				localStorage.setItem('flaggedMessage', responseData.message);
+				setFlaggedMessage(responseData.message);
+				setShowFlaggedPopup(true);
+				// Clear form but don't redirect
+				setRecipient("");
+				setMessage("");
+				setSelectedCat(0);
+			} else {
+				// Success - clear form and redirect
+				setRecipient("");
+				setMessage("");
+				setSelectedCat(0);
+				router.push("/");
+			}
 		} catch (err: any) {
 			setError(err.message ?? "Something went wrong");
 		} finally {
@@ -507,6 +534,22 @@ export default function SendMessagePage() {
 					// After successful auth, user needs to verify email before they can retry
 				}}
 			/>
+
+			{/* Flagged Message Popup */}
+			<Snackbar
+				open={showFlaggedPopup}
+				anchorOrigin={{ vertical: "top", horizontal: "center" }}
+				autoHideDuration={6000}
+				onClose={() => setShowFlaggedPopup(false)}
+			>
+				<Alert 
+					onClose={() => setShowFlaggedPopup(false)} 
+					severity="warning" 
+					sx={{ width: "100%" }}
+				>
+					{flaggedMessage || "Your message has been flagged due to inappropraite content and is waiting for approval from a moderator. It will be displayed if approved."}
+				</Alert>
+			</Snackbar>
 		</Box>
 	);
 }

@@ -111,8 +111,15 @@ export default function AuthCallbackPage() {
 							});
 
 							if (res.ok) {
+								const responseData = await res.json();
 								console.log("Pending message submitted successfully!");
 								localStorage.removeItem('pendingMessage');
+								
+								// Check if message was flagged
+								if (responseData.message && responseData.message.includes("flagged")) {
+									// Store flagged message in localStorage so it shows after redirect
+									localStorage.setItem('flaggedMessage', responseData.message);
+								}
 							} else {
 								console.error("Failed to submit pending message:", await res.text());
 							}

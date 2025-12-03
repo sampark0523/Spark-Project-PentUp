@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import styles from "./page.module.css";
-import { Box, Container, Stack, Typography } from "@mui/material";
+import { Box, Container, Stack, Typography, Snackbar, Alert } from "@mui/material";
 import { LandingPage } from "@/components/LandingPage";
 import { MessageForm } from "@/components/MessageForm";
 import { MessageGrid } from "@/components/MessageGrid";
@@ -9,6 +9,19 @@ import { Footer } from "@/components/Footer";
 
 export default function Home() {
   const [showForm, setShowForm] = React.useState(false);
+  const [flaggedMessage, setFlaggedMessage] = React.useState<string | null>(null);
+  const [showFlaggedPopup, setShowFlaggedPopup] = React.useState(false);
+
+  // Check for flagged message in localStorage on page load
+  React.useEffect(() => {
+    const flaggedMsg = localStorage.getItem('flaggedMessage');
+    if (flaggedMsg) {
+      setFlaggedMessage(flaggedMsg);
+      setShowFlaggedPopup(true);
+      // Clear it from localStorage after showing
+      localStorage.removeItem('flaggedMessage');
+    }
+  }, []);
 
   const contentBoxSx = {
     minHeight: "100vh",
@@ -31,6 +44,22 @@ export default function Home() {
         </Container>
       </Box>
       <Footer />
+
+      {/* Flagged Message Popup */}
+      <Snackbar
+        open={showFlaggedPopup}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        autoHideDuration={6000}
+        onClose={() => setShowFlaggedPopup(false)}
+      >
+        <Alert 
+          onClose={() => setShowFlaggedPopup(false)} 
+          severity="warning" 
+          sx={{ width: "100%" }}
+        >
+          {flaggedMessage || "Your message has been flagged for content review and is waiting for approval from a moderator. It will be displayed if approved."}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }
