@@ -17,58 +17,46 @@ function AuthCallbackContent() {
 			try {
 				const supabase = getBrowserClient();
 
-				console.log("All URL params:", Object.fromEntries(searchParams.entries()));
+				console.log("Auth callback started");
 				console.log("Full URL:", window.location.href);
 
-				// For PKCE flow, check if there's a code in the URL
-				const code = searchParams.get("code");
+				// Check for error in URL hash first
+				const hashParams = new URLSearchParams(window.location.hash.substring(1));
+				const errorCode = hashParams.get("error_code");
+				const errorDescription = hashParams.get("error_description");
 
-				if (code) {
-					console.log("Found auth code, exchanging for session...");
-					const { data, error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
-
-					if (exchangeError) {
-						console.error("Code exchange error:", exchangeError);
-						throw new Error(exchangeError.message || "Failed to verify authentication");
+				if (errorCode) {
+					console.error("Error in URL:", errorCode, errorDescription);
+					if (errorCode === "otp_expired") {
+						throw new Error("This magic link has expired. Please request a new one.");
 					}
+					throw new Error(errorDescription || "Authentication failed");
+				}
 
-					console.log("Session obtained:", data.session);
+				// Give Supabase time to automatically process the URL
+				// The detectSessionInUrl option will handle the magic link
+				console.log("Waiting for Supabase to process session...");
+				await new Promise(resolve => setTimeout(resolve, 2000));
 
-					// Verify UPenn email
-					const email = data.session?.user?.email;
-					if (!email || !isUPennEmail(email)) {
-						await supabase.auth.signOut();
-						throw new Error("Not a valid UPenn email address");
-					}
-				} else {
-					// Check for error in URL hash (Supabase puts errors in the hash)
-					const hashParams = new URLSearchParams(window.location.hash.substring(1));
-					const errorCode = hashParams.get("error_code");
-					const errorDescription = hashParams.get("error_description");
+				// Check for session
+				const { data: { session }, error: sessionError } = await supabase.auth.getSession();
 
-					if (errorCode) {
-						console.error("Error in URL:", errorCode, errorDescription);
-						if (errorCode === "otp_expired") {
-							throw new Error("This magic link has expired. Please request a new one.");
-						}
-						throw new Error(errorDescription || "Authentication failed");
-					}
+				console.log("Session:", session);
+				console.log("Session error:", sessionError);
 
-					// Fallback: Let Supabase automatically handle the session
-					await new Promise(resolve => setTimeout(resolve, 1000));
+				if (sessionError) {
+					throw sessionError;
+				}
 
-					const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+				if (!session) {
+					throw new Error("No session found. Please try requesting a new magic link.");
+				}
 
-					if (sessionError || !session) {
-						throw new Error("No authentication data found. Please request a new magic link.");
-					}
-
-					// Verify UPenn email
-					const email = session.user?.email;
-					if (!email || !isUPennEmail(email)) {
-						await supabase.auth.signOut();
-						throw new Error("Not a valid UPenn email address");
-					}
+				// Verify UPenn email
+				const email = session.user?.email;
+				if (!email || !isUPennEmail(email)) {
+					await supabase.auth.signOut();
+					throw new Error("Not a valid UPenn email address");
 				}
 
 				console.log("Authentication successful!");
@@ -80,37 +68,31 @@ function AuthCallbackContent() {
 						const pendingMessage = JSON.parse(pendingMessageStr);
 						console.log("Found pending message, submitting:", pendingMessage);
 
-						// Get the current session for the auth token
-						const { data: { session: currentSession } } = await supabase.auth.getSession();
+						// Submit the pending message
+						const res = await fetch('/api/messages', {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json',
+								'Authorization': `Bearer ${session.access_token}`,
+							},
+							body: JSON.stringify({
+								recipients: pendingMessage.recipient,
+								body: pendingMessage.message,
+								color: pendingMessage.color,
+							}),
+						});
 
-						if (currentSession) {
-							// Submit the pending message
-							const res = await fetch('/api/messages', {
-								method: 'POST',
-								headers: {
-									'Content-Type': 'application/json',
-									'Authorization': `Bearer ${currentSession.access_token}`,
-								},
-								body: JSON.stringify({
-									recipients: pendingMessage.recipient,
-									body: pendingMessage.message,
-									color: pendingMessage.color,
-								}),
-							});
+						if (res.ok) {
+							const responseData = await res.json();
+							console.log("Pending message submitted successfully!");
+							localStorage.removeItem('pendingMessage');
 
-							if (res.ok) {
-								const responseData = await res.json();
-								console.log("Pending message submitted successfully!");
-								localStorage.removeItem('pendingMessage');
-
-								// Check if message was flagged
-								if (responseData.message && responseData.message.includes("flagged")) {
-									// Store flagged message in localStorage so it shows after redirect
-									localStorage.setItem('flaggedMessage', responseData.message);
-								}
-							} else {
-								console.error("Failed to submit pending message:", await res.text());
+							// Check if message was flagged
+							if (responseData.message && responseData.message.includes("flagged")) {
+								localStorage.setItem('flaggedMessage', responseData.message);
 							}
+						} else {
+							console.error("Failed to submit pending message:", await res.text());
 						}
 					} catch (err) {
 						console.error("Error submitting pending message:", err);
