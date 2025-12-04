@@ -563,9 +563,8 @@
   position: relative;
   width: 100%;
   z-index: 1;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
+  display: grid;
+  place-items: center;
   padding: 0;
   margin-top: auto;
 }
@@ -575,19 +574,19 @@
   height: auto;
   display: block;
   object-fit: cover;
+  grid-area: 1 / 1;
 }
 
 .contactInfoOverlay {
-  position: absolute;
-  bottom: 15%;
-  left: 0;
-  right: 0;
+  grid-area: 1 / 1;
+  align-self: stretch;
+  position: relative;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 2.5rem 1.25rem;
+  justify-content: flex-end;
+  padding: 2.5rem 1.25rem 13rem;
   z-index: 2;
 }
 
@@ -650,20 +649,48 @@
   text-underline-position: from-font;
 }
 
+@media (max-width: 900px) {
+  .contactInfoOverlay {
+    padding: 2rem 1rem 5rem;
+  }
+}
+
 @media (max-width: 600px) {
   .contactInfoOverlay {
-    bottom: 10%;
-    padding: 1.5rem 1rem;
+    padding: 1.5rem 1rem 3rem;
+  }
+
+  .contactLink {
+    font-size: 0.875rem;
+  }
+
+  .contactSeparator {
+    font-size: 0.875rem;
+  }
+
+  .contactEmail {
+    font-size: 0.875rem;
   }
 }
 
 @media (max-width: 400px) {
   .contactInfoOverlay {
-    bottom: 8%;
-    padding: 1rem 0.75rem;
+    padding: 1rem 0.75rem 2.125rem;
   }
   
   .contactLinks {
     gap: 0.125rem 0.25rem;
+  }
+
+  .contactLink {
+    font-size: 0.75rem;
+  }
+
+  .contactSeparator {
+    font-size: 0.75rem;
+  }
+
+  .contactEmail {
+    font-size: 0.75rem;
   }
 }
