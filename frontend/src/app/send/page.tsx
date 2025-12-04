@@ -517,9 +517,69 @@ export default function SendMessagePage() {
 			<AuthModal
 				open={showAuthModal}
 				onClose={() => setShowAuthModal(false)}
-				onSuccess={() => {
+				onSuccess={async () => {
 					setShowAuthModal(false);
-					// After successful auth, user needs to verify email before they can retry
+					// After successful OTP verification, automatically submit the pending message
+					console.log("Auth successful, checking for pending message");
+
+					const pendingMessageStr = localStorage.getItem('pendingMessage');
+					if (pendingMessageStr) {
+						try {
+							const pendingMessage = JSON.parse(pendingMessageStr);
+							console.log("Found pending message, submitting:", pendingMessage);
+
+							// Get the current session
+							const supabase = getBrowserClient();
+							const { data: { session } } = await supabase.auth.getSession();
+
+							if (session) {
+								setLoading(true);
+
+								// Submit the pending message
+								const res = await fetch('/api/messages', {
+									method: 'POST',
+									headers: {
+										'Content-Type': 'application/json',
+										'Authorization': `Bearer ${session.access_token}`,
+									},
+									body: JSON.stringify({
+										recipients: pendingMessage.recipient,
+										body: pendingMessage.message,
+										color: pendingMessage.color,
+									}),
+								});
+
+								if (res.ok) {
+									const responseData = await res.json();
+									console.log("Pending message submitted successfully!");
+									localStorage.removeItem('pendingMessage');
+
+									// Check if message was flagged
+									if (responseData.message && responseData.message.includes("flagged")) {
+										localStorage.setItem('flaggedMessage', responseData.message);
+										setFlaggedMessage(responseData.message);
+										setShowFlaggedPopup(true);
+										// Clear form but don't redirect
+										setRecipient("");
+										setMessage("");
+										setSelectedCat(0);
+									} else {
+										// Success - redirect to home
+										router.push("/");
+									}
+								} else {
+									const j = await res.json().catch(() => ({}));
+									setError(j.error || "Failed to submit message");
+								}
+
+								setLoading(false);
+							}
+						} catch (err) {
+							console.error("Error submitting pending message:", err);
+							setError("Failed to submit message. Please try again.");
+							setLoading(false);
+						}
+					}
 				}}
 			/>
 
