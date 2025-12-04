@@ -232,7 +232,7 @@ export default function AboutPage() {
                 />
               </button>
               <img
-                src="/assets/about_sam_popup/sam%20Pop-up%20about.svg"
+                src="/assets/about_sam_popup/Sam About (1).png"
                 alt="Sam Popup"
                 className={styles.popupImage}
               />
@@ -240,10 +240,14 @@ export default function AboutPage() {
                 href="https://www.linkedin.com/in/seohyun-sam-park-54796828b/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={styles.samLinkedInLink}
-              >
-                @Seohyun (Sam) Park
-              </a>
+                className={styles.samLinkedInClickArea}
+                aria-label="LinkedIn Profile"
+              />
+              <a
+                href="mailto:sampark@sas.upenn.edu"
+                className={styles.samEmailClickArea}
+                aria-label="Email"
+              />
             </div>
           </div>
         </div>

@@ -267,35 +267,152 @@
  * to percentage-based absolute positioning for better consistency.
  */
 
-/* 
- * LinkedIn link positioning for Sam popup
- * Using absolute positioning with pixel values for precise placement
- * Note: Absolute positioning works best when popup images have consistent dimensions.
- * If popup sizes vary significantly, consider using percentage-based values instead.
+/*
+ * Clickable areas for LinkedIn and Email in Sam popup
+ * Invisible overlays positioned over the text in the image
  */
-.samLinkedInLink {
+.samLinkedInClickArea {
   position: absolute;
-  top: 537px;
-  left: 584px;
+  top: 610px;
+  left: 620px;
+  width: 280px;
+  height: 35px;
+  z-index: 1001;
+  cursor: pointer;
+}
+
+.samLinkedInClickArea:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.samEmailClickArea {
+  position: absolute;
+  top: 610px;
+  left: 970px;
+  width: 300px;
+  height: 35px;
+  z-index: 1001;
+  cursor: pointer;
+}
+
+.samEmailClickArea:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Sam Popup Custom Layout */
+.samPopupContainer {
+  display: flex;
+  background: #a8a8a8;
+  border-radius: 20px;
+  max-width: 1300px;
+  max-height: 90vh;
+  position: relative;
+  overflow: hidden;
+  padding: 40px;
+  gap: 20px;
+}
+
+.samPopupPhotoSection {
+  flex: 0 0 35%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #6b6b6b;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.samPopupPhoto {
+  width: 100%;
+  height: auto;
+  max-height: 700px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+
+.samPopupBioSection {
+  flex: 1;
+  padding: 50px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #f5f5f0;
+  border-radius: 15px;
+}
+
+.samPopupName {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 56px;
+  font-weight: 700;
+  margin: 0 0 30px 0;
+  line-height: 1.2;
+  color: #000;
+}
+
+.samPopupBio {
+  font-family: Helvetica, sans-serif;
+  font-size: 26px;
+  line-height: 1.6;
+  margin: 0 0 50px 0;
+  color: #000;
+}
+
+.samPopupLinks {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+  align-items: center;
+}
+
+.samPopupLinkedIn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   color: #000;
   font-family: Helvetica, sans-serif;
   font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  text-decoration-line: underline;
-  text-decoration-style: solid;
-  text-decoration-skip-ink: auto;
-  text-decoration-thickness: auto;
-  text-underline-offset: auto;
-  text-underline-position: from-font;
-  z-index: 1001;
+  text-decoration: underline;
   transition: opacity 0.2s ease;
-  white-space: nowrap;
 }
 
-.samLinkedInLink:hover {
+.samPopupLinkedIn::before {
+  content: "in";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 2px solid #000;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.samPopupLinkedIn:hover {
   opacity: 0.7;
+}
+
+.samPopupEmail {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: Helvetica, sans-serif;
+  font-size: 20px;
+  color: #000;
+}
+
+.samPopupEmail::before {
+  content: "@";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 2px solid #000;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 20px;
 }
 
 /* 
