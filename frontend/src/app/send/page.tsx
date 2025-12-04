@@ -21,25 +21,15 @@ export default function SendMessagePage() {
 	const [showFlaggedPopup, setShowFlaggedPopup] = React.useState(false);
 
 	const catIcons = [
-		{ image: "/assets/cat-icons/image 4.svg", color: "#81C700" }, // bright green
+		{ image: "/assets/cat-icons/image 8.svg", color: "#81C700" }, // bright green
 		{ image: "/assets/cat-icons/image 5.svg", color: "#F788DB" }, // bright pink
-		{ image: "/assets/cat-icons/image 7.svg", color: "#0E3663" }, // dark navy blue
-		{ image: "/assets/cat-icons/image 8.svg", color: "#FFD748" }, // bright yellow
-		{ image: "/assets/cat-icons/image 13.svg", color: "#FFB854" }, // bright orange
-		{ image: "/assets/cat-icons/image 14.svg", color: "#BB95F7" }, // bright purple
-		{ image: "/assets/cat-icons/image 15.svg", color: "#6595F7" }, // bright light blue
-		{ image: "/assets/cat-icons/image 16.svg", color: "#FF8654" }, // bright orange-red/coral
+		{ image: "/assets/cat-icons/image 16.svg", color: "#0E3663" }, // dark navy blue
+		{ image: "/assets/cat-icons/image 15.svg", color: "#FFD748" }, // bright yellow
+		{ image: "/assets/cat-icons/image 14.svg", color: "#FFB854" }, // bright orange
+		{ image: "/assets/cat-icons/image 13.svg", color: "#BB95F7" }, // bright purple
+		{ image: "/assets/cat-icons/image 7.svg", color: "#6595F7" }, // bright light blue
+		{ image: "/assets/cat-icons/image 4.svg", color: "#FF8654" }, // bright orange-red/coral
 	];
-
-	// Clear session on page load (require re-verification each time)
-	React.useEffect(() => {
-		const clearSession = async () => {
-			const supabase = getBrowserClient();
-			await supabase.auth.signOut();
-			console.log("Session cleared on page load");
-		};
-		clearSession();
-	}, []);
 
 	// Check for flagged message in localStorage on page load
 	React.useEffect(() => {
@@ -209,13 +199,15 @@ export default function SendMessagePage() {
 			<Container
 				maxWidth="lg"
 				sx={{
-					pt: 6,
-					pb: 20,
+					pt: 4,
+					pb: 4,
 					position: "relative",
 					zIndex: 1,
 					height: "100%",
-					overflowY: "auto",
-					overflowX: "hidden",
+					display: "flex",
+					flexDirection: "column",
+					justifyContent: "center",
+					overflow: "hidden",
 				}}
 			>
 				{/* Title */}
@@ -225,20 +217,20 @@ export default function SendMessagePage() {
 						alignItems: "center",
 						justifyContent: "center",
 						gap: 2,
-						mb: 2,
+						mb: 3,
 					}}
 				>
 					<Image
 						src="/assets/send-message-icon.svg"
 						alt="Pen icon"
-						width={50}
-						height={50}
+						width={40}
+						height={40}
 					/>
 					<Image
 						src="/assets/send-message-title.svg"
 						alt="Send a Message"
-						width={400}
-						height={60}
+						width={350}
+						height={50}
 					/>
 				</Box>
 
@@ -254,10 +246,10 @@ export default function SendMessagePage() {
 					{/* Message Input Section - Dynamic Color Border */}
 					<Box
 						sx={{
-							width: 500,
+							width: 450,
 							bgcolor: catIcons[selectedCat].color,
 							borderRadius: 3,
-							p: 3,
+							p: 2.5,
 							boxShadow: "0px 8px 20px rgba(0, 0, 0, 0.25)",
 							position: "relative",
 							transition: "background-color 0.3s ease",
@@ -350,8 +342,8 @@ export default function SendMessagePage() {
 							sx={{
 								bgcolor: "#fff",
 								borderRadius: "10px",
-								p: 3,
-								height: 389,
+								p: 2,
+								height: 300,
 								position: "relative",
 							}}
 						>
@@ -390,10 +382,10 @@ export default function SendMessagePage() {
 					{/* Customization Section */}
 					<Box
 						sx={{
-							width: 280,
+							width: 250,
 							bgcolor: "rgba(180, 180, 180, 0.7)",
 							borderRadius: 3,
-							p: 3,
+							p: 2.5,
 							boxShadow: "0px 8px 20px rgba(0, 0, 0, 0.25)",
 						}}
 					>
@@ -401,14 +393,14 @@ export default function SendMessagePage() {
 							sx={{
 								display: "flex",
 								justifyContent: "center",
-								mb: 3,
+								mb: 2,
 							}}
 						>
 							<Image
 								src="/assets/customization-title.svg"
 								alt="Customization"
-								width={200}
-								height={40}
+								width={180}
+								height={35}
 							/>
 						</Box>
 
@@ -417,7 +409,7 @@ export default function SendMessagePage() {
 							sx={{
 								display: "grid",
 								gridTemplateColumns: "repeat(2, 1fr)",
-								gap: 2,
+								gap: 1.5,
 							}}
 						>
 							{catIcons.map((cat, index) => (
@@ -426,13 +418,13 @@ export default function SendMessagePage() {
 									onClick={() => setSelectedCat(index)}
 									sx={{
 										width: "100%",
-										height: 90,
+										height: 75,
 										position: "relative",
 										borderRadius: 2,
 										border:
 											selectedCat === index
-												? "5px solid #000"
-												: "5px solid #555",
+												? "4px solid #000"
+												: "4px solid #555",
 										cursor: "pointer",
 										transition: "all 0.2s",
 										display: "flex",
@@ -455,15 +447,15 @@ export default function SendMessagePage() {
 										},
 										"&:hover": {
 											transform: "scale(1.05)",
-											border: "5px solid #000",
+											border: "4px solid #000",
 										},
 									}}
 								>
 									<Image
 										src={cat.image}
 										alt={`Cat ${index + 1}`}
-										width={70}
-										height={70}
+										width={60}
+										height={60}
 										style={{ objectFit: "contain", position: "relative", zIndex: 2 }}
 									/>
 								</Box>
@@ -474,22 +466,18 @@ export default function SendMessagePage() {
 
 				{/* Submit Button */}
 				<Box sx={{
-					position: "absolute",
-					bottom: -50,
-					left: "50%",
-					transform: "translateX(-50%)",
 					display: "flex",
 					flexDirection: "column",
 					alignItems: "center",
 					gap: 2,
-					zIndex: 10
+					mt: 3,
 				}}>
 					<Box
 						onClick={!loading && recipient && message ? handleSubmit : undefined}
 						sx={{
 							position: "relative",
-							px: 6,
-							py: 2.5,
+							px: 5,
+							py: 2,
 							bgcolor: "#737373",
 							borderRadius: "8px",
 							cursor: (!loading && recipient && message) ? "pointer" : "not-allowed",
@@ -507,7 +495,7 @@ export default function SendMessagePage() {
 						<Typography
 							sx={{
 								color: "#fff",
-								fontSize: "1.5rem",
+								fontSize: "1.3rem",
 								fontWeight: 400,
 								textAlign: "center",
 								whiteSpace: "nowrap",

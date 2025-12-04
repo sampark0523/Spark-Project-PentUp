@@ -119,10 +119,12 @@ export function MessageGrid() {
 								>
 									<Typography
 										sx={{
-											fontSize: "0.875rem",
-											fontWeight: 600,
-											color: "#fff",
-											fontFamily: "Arial, Helvetica, sans-serif",
+											color: "#FFF",
+											fontFamily: "'Lower Pixel', monospace",
+											fontSize: "24px",
+											fontStyle: "normal",
+											fontWeight: 400,
+											lineHeight: "normal",
 										}}
 									>
 										To: {m.recipients || "Anonymous"}
