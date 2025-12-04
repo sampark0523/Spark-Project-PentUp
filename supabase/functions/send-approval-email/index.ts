@@ -140,11 +140,6 @@ ${supabaseDashboardUrl} -> Table Editor -> messages -> Find ID ${messageId} -> E
 			}
 
 			const result = await response.json();
-			
-			// Log email details for debugging
-			console.log(`Approval email sent successfully to: ${RESEND_TO_EMAIL}`);
-			console.log(`Email ID: ${result.id}`);
-			console.log(`Message ID: ${messageId}`);
 
 			return new Response(
 				JSON.stringify({

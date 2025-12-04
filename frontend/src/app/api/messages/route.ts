@@ -145,7 +145,7 @@ export async function POST(req: NextRequest) {
 
 		const moderationResult = await moderationResponse.json();
 		
-		const isToxic = moderationResult.toxic || moderationResult.severe;
+		const isToxic = moderationResult.severe;
 		
 		// Insert message with approval status
 		const serverSupabase = createServerClient();
@@ -156,7 +156,7 @@ export async function POST(req: NextRequest) {
 				body, 
 				color: color || "#f0f0f0", 
 				user_email: user.email,
-				approved: !isToxic // Auto-approve if not toxic, pending if toxic
+				approved: !isToxic // Auto-approve if not severe, pending if severe
 			})
 			.select("id,recipients,body,color,created_at,approved")
 			.single();
