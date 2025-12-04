@@ -3,9 +3,10 @@ import { createServerClient } from "@/lib/supabase";
 
 export async function POST(
 	req: NextRequest,
-	{ params }: { params: { id: string } }
+	{ params }: { params: Promise<{ id: string }> }
 ) {
-	const messageId = params.id;
+	const { id } = await params;
+	const messageId = id;
 	
 	if (!messageId) {
 		return NextResponse.json({ error: "Message ID required" }, { status: 400 });

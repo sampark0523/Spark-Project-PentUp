@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Box, CircularProgress, Typography, Alert } from "@mui/material";
 import { getBrowserClient } from "@/lib/supabase";
 import { isUPennEmail } from "@/lib/auth";
 import { HomeButton } from "@/components/HomeButton";
 
-export default function AuthCallbackPage() {
+function AuthCallbackContent() {
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	const [error, setError] = useState<string | null>(null);
@@ -169,5 +169,35 @@ export default function AuthCallbackPage() {
 			)}
 			</Box>
 		</>
+	);
+}
+
+export default function AuthCallbackPage() {
+	return (
+		<Suspense
+			fallback={
+				<>
+					<HomeButton />
+					<Box
+						sx={{
+							minHeight: "100vh",
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "center",
+							bgcolor: "#f5e6d3",
+						}}
+					>
+						<Box sx={{ textAlign: "center" }}>
+							<CircularProgress />
+							<Typography variant="h6" sx={{ mt: 2 }}>
+								Loading...
+							</Typography>
+						</Box>
+					</Box>
+				</>
+			}
+		>
+			<AuthCallbackContent />
+		</Suspense>
 	);
 }
