@@ -11,43 +11,28 @@
   flex-direction: column;
 }
 
+/* Main content wrapper - flex row on desktop, column on mobile */
 .contentWrapper {
   position: relative;
   z-index: 1;
   display: flex;
-  min-height: 100vh;
-  padding: 120px 40px 40px 40px;
-  gap: 40px;
+  flex-direction: row;
+  min-height: auto;
+  padding: 7rem 3rem 3rem 3rem;
+  gap: 3rem;
   align-items: flex-start;
+  justify-content: center;
+  max-width: 1600px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-@media (max-width: 1200px) {
-  .contentWrapper {
-    flex-direction: column;
-    padding: 30px;
-    gap: 30px;
-  }
-}
-
-@media (max-width: 600px) {
-  .contentWrapper {
-    padding: 20px;
-    gap: 20px;
-  }
-}
-
+/* Left panel - About card */
 .aboutPanel {
   flex: 0 0 auto;
-  width: 40%;
-  max-width: 600px;
-  margin-left: 50px;
-}
-
-@media (max-width: 1200px) {
-  .aboutPanel {
-    width: 100%;
-    max-width: none;
-  }
+  width: 100%;
+  max-width: 450px;
 }
 
 .aboutCard {
@@ -57,44 +42,21 @@
   display: block;
 }
 
+/* Right section - Character rows */
 .charactersSection {
-  margin-top: 80px;
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 30px;
-  align-content: start;
-  margin-left: 130px;
+  gap: 2rem;
+  align-items: center;
+  max-width: 600px;
 }
 
 .characterRow {
   display: flex;
-  gap: 80px;
-  justify-content: flex-start;
+  gap: 5rem;
+  justify-content: center;
   align-items: flex-start;
-}
-
-@media (max-width: 1200px) {
-  .charactersSection {
-    width: 100%;
-    gap: 25px;
-    margin-left: 0;
-  }
-  
-  .characterRow {
-    gap: 25px;
-    flex-wrap: wrap;
-  }
-}
-
-@media (max-width: 600px) {
-  .charactersSection {
-    gap: 20px;
-  }
-  
-  .characterRow {
-    gap: 20px;
-  }
 }
 
 .characterCard {
@@ -102,8 +64,7 @@
   flex-direction: column;
   align-items: center;
   transition: transform 0.2s;
-  flex: 0 0 auto;
-  width: 125px;
+  width: 120px;
 }
 
 .clickableCard {
@@ -115,13 +76,13 @@
 }
 
 .characterImage {
-  width: 70%;
-  max-width: 125px;
+  width: 80%;
+  max-width: 120px;
   height: auto;
   image-rendering: pixelated;
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
 }
 
 .characterInfo {
@@ -134,21 +95,110 @@
   font-family: "Lower Pixel", sans-serif;
   font-weight: 400;
   font-style: normal;
-  font-size: 33px;
+  font-size: clamp(1.25rem, 2vw, 2rem);
   line-height: 100%;
   letter-spacing: 0%;
   text-align: center;
-  margin-bottom: 2px;
+  margin-bottom: 0.125rem;
 }
 
 .characterRole {
   font-family: "Lower Pixel", sans-serif;
   font-weight: 400;
   font-style: normal;
-  font-size: 33px;
+  font-size: clamp(1.25rem, 2vw, 2rem);
   line-height: 100%;
   letter-spacing: 0%;
   text-align: center;
+}
+
+/* Tablet breakpoint */
+@media (max-width: 900px) {
+  .contentWrapper {
+    flex-direction: column;
+    align-items: center;
+    padding: 6rem 2rem 2rem 2rem;
+    gap: 2.5rem;
+  }
+
+  .aboutPanel {
+    max-width: 400px;
+    width: 100%;
+  }
+
+  .charactersSection {
+    max-width: 100%;
+    width: 100%;
+    gap: 1.25rem;
+  }
+
+  .characterRow {
+    gap: 2rem;
+  }
+
+  .characterCard {
+    width: 100px;
+  }
+
+  .characterImage {
+    max-width: 90px;
+  }
+}
+
+/* Mobile breakpoint */
+@media (max-width: 600px) {
+  .contentWrapper {
+    padding: 5rem 1rem 1.5rem 1rem;
+    gap: 2rem;
+  }
+
+  .aboutPanel {
+    max-width: 320px;
+  }
+
+  .charactersSection {
+    gap: 1rem;
+  }
+
+  .characterRow {
+    gap: 2rem;
+  }
+
+  .characterCard {
+    width: 90px;
+  }
+
+  .characterImage {
+    max-width: 70px;
+  }
+}
+
+/* Very narrow screens */
+@media (max-width: 400px) {
+  .contentWrapper {
+    padding: 4.5rem 0.75rem 1rem 0.75rem;
+    gap: 1.5rem;
+  }
+
+  .aboutPanel {
+    max-width: 280px;
+  }
+
+  .charactersSection {
+    gap: 1.25rem;
+  }
+
+  .characterRow {
+    gap: 2.5rem;
+  }
+
+  .characterCard {
+    width: 80px;
+  }
+
+  .characterImage {
+    max-width: 60px;
+  }
 }
 
 /* Popup Modal Styles */
@@ -164,6 +214,8 @@
   justify-content: center;
   z-index: 1000;
   animation: fadeIn 0.2s ease-in;
+  padding: 1rem;
+  box-sizing: border-box;
 }
 
 @keyframes fadeIn {
@@ -200,12 +252,12 @@
   position: relative;
   display: inline-block;
   max-width: 100%;
-  max-height: 90vh;
+  max-height: 85vh;
 }
 
 .popupImage {
   max-width: 100%;
-  max-height: 90vh;
+  max-height: 85vh;
   width: auto;
   height: auto;
   object-fit: contain;
@@ -527,7 +579,7 @@
 
 .contactInfoOverlay {
   position: absolute;
-  bottom: 150px;
+  bottom: 15%;
   left: 0;
   right: 0;
   width: 100%;
@@ -535,7 +587,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 40px 20px;
+  padding: 2.5rem 1.25rem;
   z-index: 2;
 }
 
@@ -544,15 +596,15 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 4px;
-  margin-bottom: 12px;
+  gap: 0.25rem;
+  margin-bottom: 0.75rem;
 }
 
 .contactLink {
   color: #000;
   text-align: center;
   font-family: Helvetica, sans-serif;
-  font-size: 25px;
+  font-size: clamp(1rem, 2vw, 1.5rem);
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -572,18 +624,18 @@
 .contactSeparator {
   color: #000;
   font-family: Helvetica, sans-serif;
-  font-size: 25px;
+  font-size: clamp(1rem, 2vw, 1.5rem);
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  margin: 0 2px;
+  margin: 0 0.125rem;
 }
 
 .contactEmail {
   color: #000;
   text-align: center;
   font-family: Helvetica, sans-serif;
-  font-size: 25px;
+  font-size: clamp(1rem, 2vw, 1.5rem);
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -600,19 +652,18 @@
 
 @media (max-width: 600px) {
   .contactInfoOverlay {
-    padding: 30px 15px;
-  }
-  
-  .contactLink {
-    font-size: 20px;
-  }
-  
-  .contactSeparator {
-    font-size: 20px;
-  }
-  
-  .contactEmail {
-    font-size: 20px;
+    bottom: 10%;
+    padding: 1.5rem 1rem;
   }
 }
 
+@media (max-width: 400px) {
+  .contactInfoOverlay {
+    bottom: 8%;
+    padding: 1rem 0.75rem;
+  }
+  
+  .contactLinks {
+    gap: 0.125rem 0.25rem;
+  }
+}

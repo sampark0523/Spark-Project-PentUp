@@ -13,21 +13,7 @@
 }
 
 .homeButtonImage {
-	width: auto;
+	width: clamp(100px, 18vw, 260px);
 	height: auto;
-	max-width: 260px;
-	max-height: 260px;
 	display: block;
-}
-
-@media (max-width: 600px) {
-	.homeButton {
-		top: 15px;
-		left: 15px;
-	}
-
-	.homeButtonImage {
-		max-width: 80px;
-		max-height: 80px;
-	}
 }

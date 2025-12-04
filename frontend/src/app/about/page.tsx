@@ -14,69 +14,17 @@ const characters = [
   { name: "Zara", role: "designer", image: "/assets/about_characters/zara.png" },
 ];
 
+type CharacterName = "Fiona" | "Sam" | "Gia" | "Melody" | "Zara" | "Gordon" | "Ziana";
+
 export default function AboutPage() {
-  const [isFionaPopupOpen, setIsFionaPopupOpen] = useState(false);
-  const [isSamPopupOpen, setIsSamPopupOpen] = useState(false);
-  const [isGiaPopupOpen, setIsGiaPopupOpen] = useState(false);
-  const [isMelodyPopupOpen, setIsMelodyPopupOpen] = useState(false);
-  const [isZaraPopupOpen, setIsZaraPopupOpen] = useState(false);
-  const [isGordonPopupOpen, setIsGordonPopupOpen] = useState(false);
-  const [isZianaPopupOpen, setIsZianaPopupOpen] = useState(false);
+  const [openPopup, setOpenPopup] = useState<CharacterName | null>(null);
 
-  const handleFionaClick = () => {
-    setIsFionaPopupOpen(true);
+  const handleCharacterClick = (name: string) => {
+    setOpenPopup(name as CharacterName);
   };
 
-  const handleSamClick = () => {
-    setIsSamPopupOpen(true);
-  };
-
-  const handleGiaClick = () => {
-    setIsGiaPopupOpen(true);
-  };
-
-  const handleMelodyClick = () => {
-    setIsMelodyPopupOpen(true);
-  };
-
-  const handleZaraClick = () => {
-    setIsZaraPopupOpen(true);
-  };
-
-  const handleGordonClick = () => {
-    setIsGordonPopupOpen(true);
-  };
-
-  const handleZianaClick = () => {
-    setIsZianaPopupOpen(true);
-  };
-
-  const handleCloseFionaPopup = () => {
-    setIsFionaPopupOpen(false);
-  };
-
-  const handleCloseSamPopup = () => {
-    setIsSamPopupOpen(false);
-  };
-
-  const handleCloseGiaPopup = () => {
-    setIsGiaPopupOpen(false);
-  };
-
-  const handleCloseMelodyPopup = () => {
-    setIsMelodyPopupOpen(false);
-  };
-
-  const handleCloseZaraPopup = () => {
-    setIsZaraPopupOpen(false);
-  };
-
-  const handleCloseGordonPopup = () => {
-    setIsGordonPopupOpen(false);
-  };
-
-  const handleCloseZianaPopup = () => {
-    setIsZianaPopupOpen(false);
+  const handleClosePopup = () => {
+    setOpenPopup(null);
   };
 
   return (
@@ -95,15 +43,15 @@ export default function AboutPage() {
           />
         </div>
         
-        {/* Right section - Character grid */}
+        {/* Right section - Character rows */}
         <div className={styles.charactersSection}>
           {/* Row 1: Melody and Gia */}
           <div className={styles.characterRow}>
             {characters.filter(c => c.name === "Melody" || c.name === "Gia").map((character) => (
               <div 
                 key={character.name} 
-                className={`${styles.characterCard} ${character.name === "Fiona" || character.name === "Gia" || character.name === "Melody" ? styles.clickableCard : ""}`}
-                onClick={character.name === "Fiona" ? handleFionaClick : character.name === "Gia" ? handleGiaClick : character.name === "Melody" ? handleMelodyClick : undefined}
+                className={`${styles.characterCard} ${styles.clickableCard}`}
+                onClick={() => handleCharacterClick(character.name)}
               >
                 <img
                   src={character.image}
@@ -123,8 +71,8 @@ export default function AboutPage() {
             {characters.filter(c => c.name === "Gordon" || c.name === "Ziana" || c.name === "Sam").map((character) => (
               <div 
                 key={character.name} 
-                className={`${styles.characterCard} ${character.name === "Fiona" || character.name === "Sam" || character.name === "Gordon" || character.name === "Ziana" ? styles.clickableCard : ""}`}
-                onClick={character.name === "Fiona" ? handleFionaClick : character.name === "Sam" ? handleSamClick : character.name === "Gordon" ? handleGordonClick : character.name === "Ziana" ? handleZianaClick : undefined}
+                className={`${styles.characterCard} ${styles.clickableCard}`}
+                onClick={() => handleCharacterClick(character.name)}
               >
                 <img
                   src={character.image}
@@ -144,8 +92,8 @@ export default function AboutPage() {
             {characters.filter(c => c.name === "Fiona" || c.name === "Zara").map((character) => (
               <div 
                 key={character.name} 
-                className={`${styles.characterCard} ${character.name === "Fiona" || character.name === "Zara" ? styles.clickableCard : ""}`}
-                onClick={character.name === "Fiona" ? handleFionaClick : character.name === "Zara" ? handleZaraClick : undefined}
+                className={`${styles.characterCard} ${styles.clickableCard}`}
+                onClick={() => handleCharacterClick(character.name)}
               >
                 <img
                   src={character.image}
@@ -198,11 +146,11 @@ export default function AboutPage() {
       </div>
 
       {/* Fiona Popup Modal */}
-      {isFionaPopupOpen && (
-        <div className={styles.popupOverlay} onClick={handleCloseFionaPopup}>
+      {openPopup === "Fiona" && (
+        <div className={styles.popupOverlay} onClick={handleClosePopup}>
           <div className={styles.popupContent} onClick={(e) => e.stopPropagation()}>
             <div className={styles.popupImageContainer}>
-              <button className={styles.exitButton} onClick={handleCloseFionaPopup}>
+              <button className={styles.exitButton} onClick={handleClosePopup}>
                 <img
                   src="/assets/exit_button/exit button.png"
                   alt="Close"
@@ -220,11 +168,11 @@ export default function AboutPage() {
       )}
 
       {/* Sam Popup Modal */}
-      {isSamPopupOpen && (
-        <div className={styles.popupOverlay} onClick={handleCloseSamPopup}>
+      {openPopup === "Sam" && (
+        <div className={styles.popupOverlay} onClick={handleClosePopup}>
           <div className={styles.popupContent} onClick={(e) => e.stopPropagation()}>
             <div className={styles.popupImageContainer}>
-              <button className={styles.exitButton} onClick={handleCloseSamPopup}>
+              <button className={styles.exitButton} onClick={handleClosePopup}>
                 <img
                   src="/assets/exit_button/exit button.png"
                   alt="Close"
@@ -254,11 +202,11 @@ export default function AboutPage() {
       )}
 
       {/* Gia Popup Modal */}
-      {isGiaPopupOpen && (
-        <div className={styles.popupOverlay} onClick={handleCloseGiaPopup}>
+      {openPopup === "Gia" && (
+        <div className={styles.popupOverlay} onClick={handleClosePopup}>
           <div className={styles.popupContent} onClick={(e) => e.stopPropagation()}>
             <div className={styles.popupImageContainer}>
-              <button className={styles.exitButton} onClick={handleCloseGiaPopup}>
+              <button className={styles.exitButton} onClick={handleClosePopup}>
                 <img
                   src="/assets/exit_button/exit button.png"
                   alt="Close"
@@ -276,11 +224,11 @@ export default function AboutPage() {
       )}
 
       {/* Melody Popup Modal */}
-      {isMelodyPopupOpen && (
-        <div className={styles.popupOverlay} onClick={handleCloseMelodyPopup}>
+      {openPopup === "Melody" && (
+        <div className={styles.popupOverlay} onClick={handleClosePopup}>
           <div className={styles.popupContent} onClick={(e) => e.stopPropagation()}>
             <div className={styles.popupImageContainer}>
-              <button className={styles.exitButton} onClick={handleCloseMelodyPopup}>
+              <button className={styles.exitButton} onClick={handleClosePopup}>
                 <img
                   src="/assets/exit_button/exit button.png"
                   alt="Close"
@@ -306,11 +254,11 @@ export default function AboutPage() {
       )}
 
       {/* Zara Popup Modal */}
-      {isZaraPopupOpen && (
-        <div className={styles.popupOverlay} onClick={handleCloseZaraPopup}>
+      {openPopup === "Zara" && (
+        <div className={styles.popupOverlay} onClick={handleClosePopup}>
           <div className={styles.popupContent} onClick={(e) => e.stopPropagation()}>
             <div className={styles.popupImageContainer}>
-              <button className={styles.exitButton} onClick={handleCloseZaraPopup}>
+              <button className={styles.exitButton} onClick={handleClosePopup}>
                 <img
                   src="/assets/exit_button/exit button.png"
                   alt="Close"
@@ -328,11 +276,11 @@ export default function AboutPage() {
       )}
 
       {/* Gordon Popup Modal */}
-      {isGordonPopupOpen && (
-        <div className={styles.popupOverlay} onClick={handleCloseGordonPopup}>
+      {openPopup === "Gordon" && (
+        <div className={styles.popupOverlay} onClick={handleClosePopup}>
           <div className={styles.popupContent} onClick={(e) => e.stopPropagation()}>
             <div className={styles.popupImageContainer}>
-              <button className={styles.exitButton} onClick={handleCloseGordonPopup}>
+              <button className={styles.exitButton} onClick={handleClosePopup}>
                 <img
                   src="/assets/exit_button/exit button.png"
                   alt="Close"
@@ -350,11 +298,11 @@ export default function AboutPage() {
       )}
 
       {/* Ziana Popup Modal */}
-      {isZianaPopupOpen && (
-        <div className={styles.popupOverlay} onClick={handleCloseZianaPopup}>
+      {openPopup === "Ziana" && (
+        <div className={styles.popupOverlay} onClick={handleClosePopup}>
           <div className={styles.popupContent} onClick={(e) => e.stopPropagation()}>
             <div className={styles.popupImageContainer}>
-              <button className={styles.exitButton} onClick={handleCloseZianaPopup}>
+              <button className={styles.exitButton} onClick={handleClosePopup}>
                 <img
                   src="/assets/exit_button/exit button.png"
                   alt="Close"
@@ -381,4 +329,3 @@ export default function AboutPage() {
     </div>
   );
 }
-
