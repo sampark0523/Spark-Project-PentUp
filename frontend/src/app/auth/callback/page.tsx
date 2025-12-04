@@ -20,62 +20,50 @@ function AuthCallbackContent() {
 				console.log("All URL params:", Object.fromEntries(searchParams.entries()));
 				console.log("Full URL:", window.location.href);
 
-				// Check for error in URL hash (Supabase puts errors in the hash)
-				const hashParams = new URLSearchParams(window.location.hash.substring(1));
-				const errorCode = hashParams.get("error_code");
-				const errorDescription = hashParams.get("error_description");
+				// For PKCE flow, check if there's a code in the URL
+				const code = searchParams.get("code");
 
-				if (errorCode) {
-					console.error("Error in URL:", errorCode, errorDescription);
-					if (errorCode === "otp_expired") {
-						throw new Error("This magic link has expired. Please request a new one.");
+				if (code) {
+					console.log("Found auth code, exchanging for session...");
+					const { data, error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
+
+					if (exchangeError) {
+						console.error("Code exchange error:", exchangeError);
+						throw new Error(exchangeError.message || "Failed to verify authentication");
 					}
-					throw new Error(errorDescription || "Authentication failed");
-				}
 
-				// Let Supabase automatically handle the magic link
-				// The detectSessionInUrl option in our client config will process the URL
-				await new Promise(resolve => setTimeout(resolve, 500)); // Wait for Supabase to process URL
+					console.log("Session obtained:", data.session);
 
-				// Now check if we have a session
-				const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-
-				console.log("Session after URL processing:", session);
-				console.log("Session error:", sessionError);
-
-				if (!session) {
-					// Check URL hash for token_hash and type (Supabase may use hash instead of query params)
-					let tokenHash = searchParams.get("token_hash") || hashParams.get("token_hash");
-					let type = searchParams.get("type") || hashParams.get("type");
-
-					console.log("Token hash:", tokenHash);
-					console.log("Type:", type);
-
-					if (tokenHash && type) {
-						console.log("Manually verifying OTP...");
-						const { data, error: verifyError } = await supabase.auth.verifyOtp({
-							token_hash: tokenHash,
-							type: type as any,
-						});
-
-						if (verifyError) {
-							console.error("Verify OTP error:", verifyError);
-							throw verifyError;
-						}
-
-						console.log("OTP verification data:", data);
-
-						// Check the email
-						const email = data.user?.email;
-						if (!email || !isUPennEmail(email)) {
-							await supabase.auth.signOut();
-							throw new Error("Not a valid UPenn email address");
-						}
-					} else {
-						throw new Error("No authentication data found. Please request a new magic link from the home page.");
+					// Verify UPenn email
+					const email = data.session?.user?.email;
+					if (!email || !isUPennEmail(email)) {
+						await supabase.auth.signOut();
+						throw new Error("Not a valid UPenn email address");
 					}
 				} else {
-					// We have a session, verify the email
+					// Check for error in URL hash (Supabase puts errors in the hash)
+					const hashParams = new URLSearchParams(window.location.hash.substring(1));
+					const errorCode = hashParams.get("error_code");
+					const errorDescription = hashParams.get("error_description");
+
+					if (errorCode) {
+						console.error("Error in URL:", errorCode, errorDescription);
+						if (errorCode === "otp_expired") {
+							throw new Error("This magic link has expired. Please request a new one.");
+						}
+						throw new Error(errorDescription || "Authentication failed");
+					}
+
+					// Fallback: Let Supabase automatically handle the session
+					await new Promise(resolve => setTimeout(resolve, 1000));
+
+					const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+
+					if (sessionError || !session) {
+						throw new Error("No authentication data found. Please request a new magic link.");
+					}
+
+					// Verify UPenn email
 					const email = session.user?.email;
 					if (!email || !isUPennEmail(email)) {
 						await supabase.auth.signOut();
@@ -114,7 +102,7 @@ function AuthCallbackContent() {
 								const responseData = await res.json();
 								console.log("Pending message submitted successfully!");
 								localStorage.removeItem('pendingMessage');
-								
+
 								// Check if message was flagged
 								if (responseData.message && responseData.message.includes("flagged")) {
 									// Store flagged message in localStorage so it shows after redirect
