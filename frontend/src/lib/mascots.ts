@@ -1,13 +1,13 @@
 // Mascot configuration - maps colors to their corresponding cat icons
 export const catIcons = [
-	{ image: "/assets/cat-icons/image 8.svg", color: "#81C700" }, // bright green
-	{ image: "/assets/cat-icons/image 5.svg", color: "#F788DB" }, // bright pink
-	{ image: "/assets/cat-icons/image 16.svg", color: "#0E3663" }, // dark navy blue
-	{ image: "/assets/cat-icons/image 15.svg", color: "#FFD748" }, // bright yellow
-	{ image: "/assets/cat-icons/image 14.svg", color: "#FFB854" }, // bright orange
-	{ image: "/assets/cat-icons/image 13.svg", color: "#BB95F7" }, // bright purple
-	{ image: "/assets/cat-icons/image 7.svg", color: "#6595F7" }, // bright light blue
-	{ image: "/assets/cat-icons/image 4.svg", color: "#FF8654" }, // bright orange-red/coral
+	{ image: "/assets/cat-icons/image 8.png", color: "#81C700" }, // bright green
+	{ image: "/assets/cat-icons/image 5.png", color: "#F788DB" }, // bright pink
+	{ image: "/assets/cat-icons/image 16.png", color: "#0E3663" }, // dark navy blue
+	{ image: "/assets/cat-icons/image 15.png", color: "#FFD748" }, // bright yellow
+	{ image: "/assets/cat-icons/image 14.png", color: "#FFB854" }, // bright orange
+	{ image: "/assets/cat-icons/image 13.png", color: "#BB95F7" }, // bright purple
+	{ image: "/assets/cat-icons/image 7.png", color: "#6595F7" }, // bright light blue
+	{ image: "/assets/cat-icons/image 4.png", color: "#FF8654" }, // bright orange-red/coral
 ];
 
 // Create a map for quick color-to-mascot lookup
