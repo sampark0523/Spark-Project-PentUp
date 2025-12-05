@@ -129,7 +129,7 @@
   .menuWrapper {
     top: 15px;
     right: 15px;
-    width: clamp(120px, 40vw, 160px);
+    width: clamp(120px, 39vw, 160px);
   }
 
   .menuWrapper.expanded {
