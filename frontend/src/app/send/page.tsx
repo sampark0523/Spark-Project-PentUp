@@ -323,7 +323,6 @@ export default function SendMessagePage() {
 									color: "#FFF",
 									outline: "none",
 									fontFamily: "'Lower Pixel', monospace",
-									fontSize: "inherit",
 									fontStyle: "normal",
 									fontWeight: 400,
 									lineHeight: "normal",
@@ -331,10 +330,22 @@ export default function SendMessagePage() {
 								}}
 							/>
 							<style jsx>{`
+								.recipient-input {
+									font-size: 24px;
+								}
 								.recipient-input::placeholder {
 									color: rgba(255, 255, 255, 0.6);
 									font-family: 'Lower Pixel', monospace;
-									font-size: inherit;
+								}
+								@media (min-width: 600px) {
+									.recipient-input {
+										font-size: 30px;
+									}
+								}
+								@media (min-width: 900px) {
+									.recipient-input {
+										font-size: 35px;
+									}
 								}
 							`}</style>
 						</Box>
