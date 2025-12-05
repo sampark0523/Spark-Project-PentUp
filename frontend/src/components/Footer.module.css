@@ -1,9 +1,8 @@
 .footerContainer {
 	position: relative;
 	width: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: flex-end;
+	display: grid;
+	place-items: center;
 	padding: 0;
 }
 
@@ -12,19 +11,19 @@
 	height: auto;
 	display: block;
 	object-fit: cover;
+	grid-area: 1 / 1;
 }
 
 .footerOverlay {
-	position: absolute;
-	bottom: 150px;
-	left: 0;
-	right: 0;
+	grid-area: 1 / 1;
+	align-self: stretch;
+	position: relative;
 	width: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center;
-	padding: 40px 20px;
+	justify-content: flex-end;
+	padding: 2.5rem 1.25rem 12rem;
 	z-index: 1;
 }
 
@@ -41,7 +40,7 @@
 	color: #000;
 	text-align: center;
 	font-family: Helvetica, sans-serif;
-	font-size: 25px;
+	font-size: clamp(1rem, 2vw, 1.5rem);
 	font-style: normal;
 	font-weight: 400;
 	line-height: normal;
@@ -61,7 +60,7 @@
 .contactSeparator {
 	color: #000;
 	font-family: Helvetica, sans-serif;
-	font-size: 25px;
+	font-size: clamp(1rem, 2vw, 1.5rem);
 	font-style: normal;
 	font-weight: 400;
 	line-height: normal;
@@ -71,7 +70,7 @@
 	color: #000;
 	text-align: center;
 	font-family: Helvetica, sans-serif;
-	font-size: 25px;
+	font-size: clamp(1rem, 2vw, 1.5rem);
 	font-style: normal;
 	font-weight: 400;
 	line-height: normal;
@@ -86,21 +85,48 @@
 	text-underline-position: from-font;
 }
 
+@media (max-width: 900px) {
+	.footerOverlay {
+		padding: 2rem 1rem 4.5rem;
+	}
+}
+
 @media (max-width: 600px) {
 	.footerOverlay {
-		bottom: 100px;
-		padding: 30px 15px;
+		padding: 1.5rem 1rem 3rem;
 	}
-	
+
 	.contactLink {
-		font-size: 20px;
+		font-size: 0.875rem;
 	}
-	
+
 	.contactSeparator {
-		font-size: 20px;
+		font-size: 0.875rem;
 	}
-	
+
 	.contactEmail {
-		font-size: 20px;
+		font-size: 0.875rem;
+	}
+}
+
+@media (max-width: 400px) {
+	.footerOverlay {
+		padding: 1rem 0.75rem 1.85rem;
+	}
+
+	.contactLinks {
+		gap: 0.125rem 0.25rem;
+	}
+
+	.contactLink {
+		font-size: 0.75rem;
+	}
+
+	.contactSeparator {
+		font-size: 0.75rem;
+	}
+
+	.contactEmail {
+		font-size: 0.75rem;
 	}
 }

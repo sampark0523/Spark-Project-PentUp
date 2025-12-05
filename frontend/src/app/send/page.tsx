@@ -143,13 +143,14 @@ export default function SendMessagePage() {
 		<Box
 			sx={{
 				minHeight: "100vh",
-				height: "100vh",
 				background: `url(/assets/add-message-bg.png) center / cover no-repeat`,
 				position: "relative",
-				overflow: "hidden",
+				overflowX: "hidden",
+				overflowY: "auto",
+				boxSizing: "border-box",
 			}}
 		>
-			{/* Background Ellipses */}
+			{/* Background Ellipses - hidden on mobile to prevent overflow */}
 			{/* Top Right Ellipse */}
 			<Box
 				sx={{
@@ -161,6 +162,7 @@ export default function SendMessagePage() {
 					zIndex: 0,
 					pointerEvents: "none",
 					overflow: "visible",
+					display: { xs: "none", md: "block" },
 				}}
 			>
 				<Image
@@ -182,6 +184,7 @@ export default function SendMessagePage() {
 					zIndex: 0,
 					pointerEvents: "none",
 					overflow: "visible",
+					display: { xs: "none", md: "block" },
 				}}
 			>
 				<Image
@@ -199,15 +202,16 @@ export default function SendMessagePage() {
 			<Container
 				maxWidth="lg"
 				sx={{
-					pt: 4,
+					pt: { xs: 10, sm: 6, md: 4 },
 					pb: 4,
+					px: { xs: 2, sm: 3, md: 4 },
 					position: "relative",
 					zIndex: 1,
-					height: "100%",
+					minHeight: "100vh",
 					display: "flex",
 					flexDirection: "column",
 					justifyContent: "center",
-					overflow: "hidden",
+					boxSizing: "border-box",
 				}}
 			>
 				{/* Title */}
@@ -216,8 +220,9 @@ export default function SendMessagePage() {
 						display: "flex",
 						alignItems: "center",
 						justifyContent: "center",
-						gap: 2,
-						mb: 3,
+						gap: { xs: 1, sm: 2 },
+						mb: { xs: 2, sm: 3 },
+						flexWrap: "wrap",
 					}}
 				>
 					<Image
@@ -225,12 +230,14 @@ export default function SendMessagePage() {
 						alt="Pen icon"
 						width={40}
 						height={40}
+						style={{ width: "clamp(25px, 5vw, 40px)", height: "auto" }}
 					/>
 					<Image
 						src="/assets/send-message-title.svg"
 						alt="Send a Message"
 						width={350}
 						height={50}
+						style={{ width: "clamp(200px, 50vw, 350px)", height: "auto" }}
 					/>
 				</Box>
 
@@ -238,31 +245,35 @@ export default function SendMessagePage() {
 				<Box
 					sx={{
 						display: "flex",
-						gap: 4,
+						flexDirection: { xs: "column", md: "row" },
+						gap: { xs: 2, sm: 3, md: 4 },
 						justifyContent: "center",
-						alignItems: "flex-start",
+						alignItems: { xs: "center", md: "flex-start" },
+						width: "100%",
 					}}
 				>
 					{/* Message Input Section - Dynamic Color Border */}
 					<Box
 						sx={{
-							width: 450,
+							width: { xs: "100%", sm: "90%", md: 450 },
+							maxWidth: 450,
 							bgcolor: catIcons[selectedCat].color,
 							borderRadius: 3,
-							p: 2.5,
+							p: { xs: 1.5, sm: 2, md: 2.5 },
 							boxShadow: "0px 8px 20px rgba(0, 0, 0, 0.25)",
 							position: "relative",
 							transition: "background-color 0.3s ease",
+							boxSizing: "border-box",
 						}}
 					>
 						{/* Stamp Icon - Top Right of entire container */}
 						<Box
 							sx={{
-								width: "76px",
-								height: "61px",
+								width: { xs: "50px", sm: "65px", md: "76px" },
+								height: { xs: "40px", sm: "52px", md: "61px" },
 								position: "absolute",
-								top: 16,
-								right: 16,
+								top: { xs: 8, sm: 12, md: 16 },
+								right: { xs: 8, sm: 12, md: 16 },
 								display: "flex",
 								alignItems: "center",
 								justifyContent: "center",
@@ -274,7 +285,7 @@ export default function SendMessagePage() {
 								alt="Stamp"
 								width={76}
 								height={61}
-								style={{ objectFit: "contain" }}
+								style={{ objectFit: "contain", width: "100%", height: "100%" }}
 							/>
 						</Box>
 
@@ -283,11 +294,11 @@ export default function SendMessagePage() {
 							sx={{
 								bgcolor: catIcons[selectedCat].color,
 								borderRadius: "10px",
-								p: 2,
-								mb: 2,
+								p: { xs: 1.5, sm: 2 },
+								mb: { xs: 1.5, sm: 2 },
 								display: "flex",
 								alignItems: "center",
-								gap: 2,
+								gap: { xs: 1, sm: 2 },
 								position: "relative",
 								transition: "background-color 0.3s ease",
 							}}
@@ -297,7 +308,7 @@ export default function SendMessagePage() {
 									color: "#FFF",
 									fontWeight: 400,
 									fontFamily: "'Lower Pixel', monospace",
-									fontSize: "35px",
+									fontSize: { xs: "24px", sm: "30px", md: "35px" },
 									fontStyle: "normal",
 									lineHeight: "normal",
 								}}
@@ -322,17 +333,18 @@ export default function SendMessagePage() {
 									color: "#FFF",
 									outline: "none",
 									fontFamily: "'Lower Pixel', monospace",
-									fontSize: "35px",
+									fontSize: "inherit",
 									fontStyle: "normal",
 									fontWeight: 400,
 									lineHeight: "normal",
+									minWidth: 0,
 								}}
 							/>
 							<style jsx>{`
 								.recipient-input::placeholder {
 									color: rgba(255, 255, 255, 0.6);
 									font-family: 'Lower Pixel', monospace;
-									font-size: 35px;
+									font-size: inherit;
 								}
 							`}</style>
 						</Box>
@@ -342,8 +354,8 @@ export default function SendMessagePage() {
 							sx={{
 								bgcolor: "#fff",
 								borderRadius: "10px",
-								p: 2,
-								height: 300,
+								p: { xs: 1.5, sm: 2 },
+								height: { xs: 200, sm: 250, md: 300 },
 								position: "relative",
 							}}
 						>
@@ -358,7 +370,7 @@ export default function SendMessagePage() {
 									border: "none",
 									outline: "none",
 									resize: "none",
-									fontSize: "30px",
+									fontSize: "clamp(16px, 4vw, 30px)",
 									fontFamily: "Helvetica",
 									lineHeight: "normal",
 									color: "#000",
@@ -367,6 +379,7 @@ export default function SendMessagePage() {
 									background: "transparent",
 									position: "relative",
 									zIndex: 2,
+									boxSizing: "border-box",
 								}}
 							/>
 							<style jsx>{`
@@ -382,18 +395,20 @@ export default function SendMessagePage() {
 					{/* Customization Section */}
 					<Box
 						sx={{
-							width: 250,
+							width: { xs: "100%", sm: "90%", md: 250 },
+							maxWidth: { xs: 450, md: 250 },
 							bgcolor: "rgba(180, 180, 180, 0.7)",
 							borderRadius: 3,
-							p: 2.5,
+							p: { xs: 1.5, sm: 2, md: 2.5 },
 							boxShadow: "0px 8px 20px rgba(0, 0, 0, 0.25)",
+							boxSizing: "border-box",
 						}}
 					>
 						<Box
 							sx={{
 								display: "flex",
 								justifyContent: "center",
-								mb: 2,
+								mb: { xs: 1.5, sm: 2 },
 							}}
 						>
 							<Image
@@ -401,6 +416,7 @@ export default function SendMessagePage() {
 								alt="Customization"
 								width={180}
 								height={35}
+								style={{ width: "clamp(140px, 40vw, 180px)", height: "auto" }}
 							/>
 						</Box>
 
@@ -408,8 +424,8 @@ export default function SendMessagePage() {
 						<Box
 							sx={{
 								display: "grid",
-								gridTemplateColumns: "repeat(2, 1fr)",
-								gap: 1.5,
+								gridTemplateColumns: { xs: "repeat(4, 1fr)", md: "repeat(2, 1fr)" },
+								gap: { xs: 1, sm: 1.5 },
 							}}
 						>
 							{catIcons.map((cat, index) => (
@@ -418,7 +434,7 @@ export default function SendMessagePage() {
 									onClick={() => setSelectedCat(index)}
 									sx={{
 										width: "100%",
-										height: 75,
+										height: { xs: 60, sm: 70, md: 75 },
 										position: "relative",
 										borderRadius: 2,
 										border:
@@ -456,7 +472,7 @@ export default function SendMessagePage() {
 										alt={`Cat ${index + 1}`}
 										width={60}
 										height={60}
-										style={{ objectFit: "contain", position: "relative", zIndex: 2 }}
+										style={{ objectFit: "contain", position: "relative", zIndex: 2, width: "clamp(40px, 8vw, 60px)", height: "auto" }}
 									/>
 								</Box>
 							))}
@@ -470,14 +486,15 @@ export default function SendMessagePage() {
 					flexDirection: "column",
 					alignItems: "center",
 					gap: 2,
-					mt: 3,
+					mt: { xs: 2, sm: 3 },
+					px: { xs: 2, sm: 0 },
 				}}>
 					<Box
 						onClick={!loading && recipient && message ? handleSubmit : undefined}
 						sx={{
 							position: "relative",
-							px: 5,
-							py: 2,
+							px: { xs: 3, sm: 4, md: 5 },
+							py: { xs: 1.5, sm: 2 },
 							bgcolor: "#737373",
 							borderRadius: "8px",
 							cursor: (!loading && recipient && message) ? "pointer" : "not-allowed",
@@ -495,7 +512,7 @@ export default function SendMessagePage() {
 						<Typography
 							sx={{
 								color: "#fff",
-								fontSize: "1.3rem",
+								fontSize: { xs: "1rem", sm: "1.15rem", md: "1.3rem" },
 								fontWeight: 400,
 								textAlign: "center",
 								whiteSpace: "nowrap",
@@ -506,7 +523,7 @@ export default function SendMessagePage() {
 						</Typography>
 					</Box>
 					{error && (
-						<Typography sx={{ color: "#D32F2F", fontSize: "0.9rem", fontWeight: 500 }}>
+						<Typography sx={{ color: "#D32F2F", fontSize: "0.9rem", fontWeight: 500, textAlign: "center", px: 2 }}>
 							{error}
 						</Typography>
 					)}

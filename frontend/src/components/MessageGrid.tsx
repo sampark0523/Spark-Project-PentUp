@@ -9,11 +9,6 @@ import { Stamp } from "./stamps/Stamp";
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
-// Generate a random width for each card between min and max
-function getRandomWidth(min = 383, max = 615) {
-	return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
 // Darken a hex color by a percentage
 function darkenColor(hex: string, percent: number): string {
 	// Remove # if present
@@ -33,14 +28,6 @@ function darkenColor(hex: string, percent: number): string {
 	return `#${newR.toString(16).padStart(2, "0")}${newG.toString(16).padStart(2, "0")}${newB.toString(16).padStart(2, "0")}`;
 }
 
-// Calculate widths for a row of 3 cards
-function calculateRowWidths(totalWidth: number, gap: number): [number, number, number] {
-	const width1 = getRandomWidth();
-	const width2 = getRandomWidth();
-	const width3 = totalWidth - width1 - width2 - (gap * 2);
-	return [width1, width2, width3];
-}
-
 export function MessageGrid() {
 	const { data } = useSWR<MessageRow[]>(`/api/messages`, fetcher, {
 		refreshInterval: 0,
@@ -49,127 +36,109 @@ export function MessageGrid() {
 
 	const messages = Array.isArray(data) ? data : [];
 
-	// Group messages into rows of 3 with pre-calculated widths
-	const rows = React.useMemo(() => {
-		const rowData: Array<Array<{ message: MessageRow; width: number }>> = [];
-		const totalWidth = 1400; // Total width for all 3 cards + gaps
-		const gap = 24; // Gap between cards (3 * 8px)
-
-		for (let i = 0; i < messages.length; i += 3) {
-			const [w1, w2, w3] = calculateRowWidths(totalWidth, gap);
-			const row = [];
-
-			if (messages[i]) row.push({ message: messages[i], width: w1 });
-			if (messages[i + 1]) row.push({ message: messages[i + 1], width: w2 });
-			if (messages[i + 2]) row.push({ message: messages[i + 2], width: w3 });
-
-			rowData.push(row);
-		}
-
-		return rowData;
-	}, [messages]);
-
 	return (
-		<Box sx={{ mt: 4 }}>
-			{rows.map((row, rowIndex) => (
-				<Box
-					key={rowIndex}
-					sx={{
-						display: "flex",
-						gap: 3,
-						mb: 3,
-					}}
-				>
-					{row.map(({ message: m, width }) => {
-						const cardColor = m.color || "#f0f0f0";
-						const headerColor = darkenColor(cardColor, 0.15);
+		<Box
+			sx={{
+				mt: 4,
+				display: "grid",
+				gridTemplateColumns: {
+					xs: "1fr",
+					sm: "repeat(2, 1fr)",
+					md: "repeat(3, 1fr)",
+				},
+				gap: { xs: 2, sm: 2.5, md: 3 },
+				width: "100%",
+			}}
+		>
+			{messages.map((m) => {
+				const cardColor = m.color || "#f0f0f0";
+				const headerColor = darkenColor(cardColor, 0.15);
 
-						return (
-							<Card
-								key={m.id}
+				return (
+					<Card
+						key={m.id}
+						sx={{
+							width: "100%",
+							minHeight: { xs: "160px", sm: "180px", md: "200px" },
+							bgcolor: "#fff",
+							borderRadius: "10px",
+							border: `6px solid ${cardColor}`,
+							boxShadow: "0 3px 10px rgba(0, 0, 0, 0.15)",
+							display: "flex",
+							flexDirection: "column",
+							overflow: "hidden",
+							transition: "transform 0.2s, box-shadow 0.2s",
+							"&:hover": {
+								transform: "translateY(-2px)",
+								boxShadow: "0 5px 15px rgba(0, 0, 0, 0.2)",
+							},
+						}}
+					>
+						{/* Colored header bar */}
+						<Box
+							sx={{
+								backgroundColor: headerColor,
+								p: { xs: 1, sm: 1.25, md: 1.5 },
+								pr: { xs: 6, sm: 7, md: 8 },
+								display: "flex",
+								alignItems: "center",
+								justifyContent: "space-between",
+								position: "relative",
+								borderRadius: "4px 4px 0 0",
+							}}
+						>
+							<Typography
 								sx={{
-									width: `${width}px`,
-									height: "200px",
-									bgcolor: "#fff",
-									borderRadius: "10px",
-									border: `6px solid ${cardColor}`,
-									boxShadow: "0 3px 10px rgba(0, 0, 0, 0.15)",
-									display: "flex",
-									flexDirection: "column",
-									overflow: "hidden",
-									transition: "transform 0.2s, box-shadow 0.2s",
-									"&:hover": {
-										transform: "translateY(-2px)",
-										boxShadow: "0 5px 15px rgba(0, 0, 0, 0.2)",
-									},
+									color: "#FFF",
+									fontFamily: "'Lower Pixel', monospace",
+									fontSize: { xs: "18px", sm: "21px", md: "24px" },
+									fontStyle: "normal",
+									fontWeight: 400,
+									lineHeight: "normal",
 								}}
 							>
-								{/* Colored header bar */}
-								<Box
-									sx={{
-										backgroundColor: headerColor,
-										p: 1.5,
-										pr: 8,
-										display: "flex",
-										alignItems: "center",
-										justifyContent: "space-between",
-										position: "relative",
-						borderRadius: "4px 4px 0 0",
-									}}
-								>
-									<Typography
-										sx={{
-											color: "#FFF",
-											fontFamily: "'Lower Pixel', monospace",
-											fontSize: "24px",
-											fontStyle: "normal",
-											fontWeight: 400,
-											lineHeight: "normal",
-										}}
-									>
-										To: {m.recipients || "Anonymous"}
-									</Typography>
+								To: {m.recipients || "Anonymous"}
+							</Typography>
 
-									{/* Stamp in top-right corner */}
-									<Box
-										sx={{
-											position: "absolute",
-											top: 0,
-											right: 8,
-										}}
-									>
-										<Stamp color={headerColor} />
-									</Box>
-								</Box>
+							{/* Stamp in top-right corner */}
+							<Box
+								sx={{
+									position: "absolute",
+									top: 0,
+									right: 8,
+								}}
+							>
+								<Stamp color={headerColor} />
+							</Box>
+						</Box>
 
-								{/* White body */}
-								<Box
-									sx={{
-										p: 2.5,
-										flex: 1,
-										backgroundColor: "#fff",
-										overflow: "auto",
-									}}
-								>
-									<Typography
-										sx={{
-											fontSize: "0.875rem",
-											lineHeight: 1.7,
-											color: "#111",
-											fontFamily: "Arial, Helvetica, sans-serif",
-										}}
-									>
-										{m.body}
-									</Typography>
-								</Box>
-							</Card>
-						);
-					})}
-				</Box>
-			))}
+						{/* White body */}
+						<Box
+							sx={{
+								p: { xs: 1.5, sm: 2, md: 2.5 },
+								flex: 1,
+								backgroundColor: "#fff",
+								overflow: "auto",
+							}}
+						>
+							<Typography
+								sx={{
+									fontSize: { xs: "0.8rem", sm: "0.85rem", md: "0.875rem" },
+									lineHeight: 1.7,
+									color: "#111",
+									fontFamily: "Arial, Helvetica, sans-serif",
+								}}
+							>
+								{m.body}
+							</Typography>
+						</Box>
+					</Card>
+				);
+			})}
 			{messages.length === 0 && (
 				<Box
 					sx={{
+						gridColumn: "1 / -1",
 						width: "100%",
 						textAlign: "center",
 						color: "#666",

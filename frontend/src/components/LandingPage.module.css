@@ -229,17 +229,37 @@
 }
 
 .addButtonImage {
-	width: auto;
+	width: clamp(50px, 8vw, 90px);
 	height: auto;
-	max-width: 90px;
-	max-height: 90px;
 	display: block;
+}
+
+@media (max-width: 900px) {
+	.addButton {
+		bottom: 90px;
+		left: 30px;
+	}
 }
 
 @media (max-width: 600px) {
 	.addButton {
-		bottom: 0;
-		left: 0;
+		bottom: 80px;
+		left: 15px;
+	}
+
+	.addButtonImage {
+		width: 50px;
+	}
+}
+
+@media (max-width: 400px) {
+	.addButton {
+		bottom: 50px;
+		left: 10px;
+	}
+
+	.addButtonImage {
+		width: 40px;
 	}
 }
 

@@ -13,7 +13,7 @@
 }
 
 .homeButtonImage {
-	width: clamp(100px, 18vw, 260px);
+	width: clamp(152px, 22vw, 260px);
 	height: auto;
 	display: block;
 }
