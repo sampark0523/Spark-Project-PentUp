@@ -7,6 +7,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import type { MessageRow } from "@/lib/supabase";
 import { Stamp } from "./stamps/Stamp";
 import { useSearch } from "@/contexts/SearchContext";
+import { getMascotForColor } from "@/lib/mascots";
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
@@ -66,6 +67,7 @@ export function MessageGrid() {
 			{messages.map((m) => {
 				const cardColor = m.color || "#f0f0f0";
 				const headerColor = darkenColor(cardColor, 0.15);
+				const mascotImage = getMascotForColor(m.color);
 
 				return (
 					<Card
@@ -121,7 +123,7 @@ export function MessageGrid() {
 									right: 8,
 								}}
 							>
-								<Stamp color={headerColor} />
+								<Stamp color={headerColor} mascotImage={mascotImage} />
 							</Box>
 						</Box>
 

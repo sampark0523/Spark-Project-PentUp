@@ -8,6 +8,7 @@ import { getBrowserClient } from "@/lib/supabase";
 import { HomeButton } from "@/components/HomeButton";
 import { isUPennEmail } from "@/lib/auth";
 import { AuthModal } from "@/components/AuthModal";
+import { catIcons } from "@/lib/mascots";
 
 export default function SendMessagePage() {
 	const router = useRouter();
@@ -19,17 +20,6 @@ export default function SendMessagePage() {
 	const [showAuthModal, setShowAuthModal] = React.useState(false);
 	const [flaggedMessage, setFlaggedMessage] = React.useState<string | null>(null);
 	const [showFlaggedPopup, setShowFlaggedPopup] = React.useState(false);
-
-	const catIcons = [
-		{ image: "/assets/cat-icons/image 8.svg", color: "#81C700" }, // bright green
-		{ image: "/assets/cat-icons/image 5.svg", color: "#F788DB" }, // bright pink
-		{ image: "/assets/cat-icons/image 16.svg", color: "#0E3663" }, // dark navy blue
-		{ image: "/assets/cat-icons/image 15.svg", color: "#FFD748" }, // bright yellow
-		{ image: "/assets/cat-icons/image 14.svg", color: "#FFB854" }, // bright orange
-		{ image: "/assets/cat-icons/image 13.svg", color: "#BB95F7" }, // bright purple
-		{ image: "/assets/cat-icons/image 7.svg", color: "#6595F7" }, // bright light blue
-		{ image: "/assets/cat-icons/image 4.svg", color: "#FF8654" }, // bright orange-red/coral
-	];
 
 	// Check for flagged message in localStorage on page load
 	React.useEffect(() => {
