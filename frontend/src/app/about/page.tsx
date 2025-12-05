@@ -138,6 +138,10 @@ export default function AboutPage() {
             <a href="https://pennclubs.com/club/penn-spark/" target="_blank" rel="noopener noreferrer" className={styles.contactLink}>
               Penn Clubs
             </a>
+            <span className={styles.contactSeparator}> • </span>
+            <a href="https://pennspark.org/" target="_blank" rel="noopener noreferrer" className={styles.contactLink}>
+              Spark Website
+            </a>
           </div>
           <div className={styles.contactEmail}>
             Contact Us: <a href="mailto:upennspark@gmail.com" className={styles.contactLink}>upennspark@gmail.com</a>
