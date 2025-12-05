@@ -129,5 +129,41 @@
   .menuWrapper {
     top: 15px;
     right: 15px;
+    width: clamp(120px, 40vw, 160px);
+  }
+
+  .menuWrapper.expanded {
+    width: clamp(240px, 70vw, 300px);
+  }
+
+  .menuLinks {
+    gap: 12px;
+  }
+
+  .menuSearchInput {
+    font-size: 11px;
+    min-width: 60px;
+    width: 80px;
+    max-width: 100px;
+    margin-right: 4px;
+  }
+
+  .menuLink {
+    font-size: 11px;
+  }
+
+  .menuLinkOverlay {
+    left: 14%;
+    width: 40px;
+  }
+
+  .menuAboutOverlay {
+    left: calc(14% + 50px);
+    width: 40px;
+  }
+
+  .menuSearchIconOverlay {
+    right: 6%;
+    width: 22px;
   }
 }
