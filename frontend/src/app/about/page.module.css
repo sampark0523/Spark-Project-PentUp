@@ -350,36 +350,33 @@
  * to percentage-based absolute positioning for better consistency.
  */
 
-/*
- * Clickable areas for LinkedIn and Email in Sam popup
- * Invisible overlays positioned over the text in the image
+/* 
+ * LinkedIn link positioning for Sam popup
+ * Using absolute positioning with percentage values for consistent placement
  */
-.samLinkedInClickArea {
+.samLinkedInLink {
   position: absolute;
-  top: 610px;
-  left: 620px;
-  width: 280px;
-  height: 35px;
+  top: 71.85%;
+  left: 48.20%;
+  color: #000;
+  font-family: Helvetica, sans-serif;
+  font-size: clamp(7.5px, 1.5vw, 24px);
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: auto;
+  text-decoration-thickness: auto;
+  text-underline-offset: auto;
+  text-underline-position: from-font;
   z-index: 1001;
-  cursor: pointer;
+  transition: opacity 0.2s ease;
+  white-space: nowrap;
 }
 
-.samLinkedInClickArea:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-.samEmailClickArea {
-  position: absolute;
-  top: 610px;
-  left: 970px;
-  width: 300px;
-  height: 35px;
-  z-index: 1001;
-  cursor: pointer;
-}
-
-.samEmailClickArea:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+.samLinkedInLink:hover {
+  opacity: 0.7;
 }
 
 /* Sam Popup Custom Layout */
@@ -500,17 +497,15 @@
 
 /* 
  * LinkedIn link positioning for Melody popup
- * Using absolute positioning with pixel values for precise placement
- * Note: Absolute positioning works best when popup images have consistent dimensions.
- * If popup sizes vary significantly, consider using percentage-based values instead.
+ * Using absolute positioning with percentage values for consistent placement
  */
 .melodyLinkedInLink {
   position: absolute;
-  top: 558px;
-  left: 584px;
+  top: 75.60%;
+  left: 48.20%;
   color: #000;
   font-family: Helvetica, sans-serif;
-  font-size: 20px;
+  font-size: clamp(9.5px, 1vw, 20px);
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -531,17 +526,15 @@
 
 /* 
  * LinkedIn link positioning for Ziana popup
- * Using absolute positioning with pixel values for precise placement
- * Note: Absolute positioning works best when popup images have consistent dimensions.
- * If popup sizes vary significantly, consider using percentage-based values instead.
+ * Using absolute positioning with percentage values for consistent placement
  */
 .zianaLinkedInLink {
   position: absolute;
-  top: 540px;
-  left: 584px;
+  top: 73.35%;
+  left: 48.20%;
   color: #000;
   font-family: Helvetica, sans-serif;
-  font-size: 20px;
+  font-size: clamp(9.5px, 1vw, 20px);
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -564,23 +557,31 @@
   .popupContent {
     max-width: 95%;
   }
-  
+
   .samLinkedInLink {
-    font-size: 16px;
-    top: 350px;
-    left: 400px;
+    font-size: 7.5px !important;
   }
-  
+
   .melodyLinkedInLink {
-    font-size: 16px;
-    top: 350px;
-    left: 400px;
+    font-size: 7.5px !important;
   }
-  
+
   .zianaLinkedInLink {
-    font-size: 16px;
-    top: 350px;
-    left: 400px;
+    font-size: 7.5px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .samLinkedInLink {
+    font-size: 8px !important;
+  }
+
+  .melodyLinkedInLink {
+    font-size: 6.5px !important;
+  }
+
+  .zianaLinkedInLink {
+    font-size: 6.5px !important;
   }
 }
 

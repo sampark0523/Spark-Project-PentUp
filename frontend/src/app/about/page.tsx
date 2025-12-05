@@ -180,7 +180,7 @@ export default function AboutPage() {
                 />
               </button>
               <img
-                src="/assets/about_sam_popup/Sam About (1).png"
+                src="/assets/about_sam_popup/Sam Pop-up about.png"
                 alt="Sam Popup"
                 className={styles.popupImage}
               />
@@ -188,14 +188,10 @@ export default function AboutPage() {
                 href="https://www.linkedin.com/in/seohyun-sam-park-54796828b/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={styles.samLinkedInClickArea}
-                aria-label="LinkedIn Profile"
-              />
-              <a
-                href="mailto:sampark@sas.upenn.edu"
-                className={styles.samEmailClickArea}
-                aria-label="Email"
-              />
+                className={styles.samLinkedInLink}
+              >
+                @Sam Park
+              </a>
             </div>
           </div>
         </div>
@@ -320,7 +316,7 @@ export default function AboutPage() {
                 rel="noopener noreferrer"
                 className={styles.zianaLinkedInLink}
               >
-                @ZianaSundrani
+                @Ziana Sundrani
               </a>
             </div>
           </div>
