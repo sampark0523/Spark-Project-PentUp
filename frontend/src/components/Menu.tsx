@@ -119,7 +119,7 @@ export function Menu() {
               value={searchQuery}
               onChange={handleInputChange}
               onBlur={handleInputBlur}
-              placeholder=""
+              placeholder="Search for your initials"
               className={styles.menuSearchInput}
               maxLength={10}
             />
