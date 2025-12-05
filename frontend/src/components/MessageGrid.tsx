@@ -6,6 +6,7 @@ import { Box, Card, Typography } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import type { MessageRow } from "@/lib/supabase";
 import { Stamp } from "./stamps/Stamp";
+import { useSearch } from "@/contexts/SearchContext";
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
@@ -29,12 +30,24 @@ function darkenColor(hex: string, percent: number): string {
 }
 
 export function MessageGrid() {
+	const { searchQuery } = useSearch();
 	const { data } = useSWR<MessageRow[]>(`/api/messages`, fetcher, {
 		refreshInterval: 0,
 		revalidateOnFocus: true,
 	});
 
-	const messages = Array.isArray(data) ? data : [];
+	const allMessages = Array.isArray(data) ? data : [];
+	
+	// Filter messages by search query (case-insensitive match on recipients/initials)
+	const messages = React.useMemo(() => {
+		if (!searchQuery.trim()) {
+			return allMessages;
+		}
+		const query = searchQuery.trim().toLowerCase();
+		return allMessages.filter((m) =>
+			m.recipients?.toLowerCase().includes(query)
+		);
+	}, [allMessages, searchQuery]);
 
 	return (
 		<Box
@@ -146,7 +159,9 @@ export function MessageGrid() {
 						fontFamily: "Arial, Helvetica, sans-serif",
 					}}
 				>
-					No messages yet. Be the first!
+					{searchQuery.trim() 
+						? `No messages found for "${searchQuery}".` 
+						: "No messages yet. Be the first!"}
 				</Box>
 			)}
 		</Box>

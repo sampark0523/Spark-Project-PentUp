@@ -35,7 +35,7 @@ export default function Home() {
   return (
     <Box>
       <LandingPage onAddClick={() => setShowForm(!showForm)} />
-      <Box sx={contentBoxSx}>
+      <Box sx={contentBoxSx} data-message-content>
         <Container maxWidth="lg" sx={{ py: 6, px: { xs: 3, sm: 4, md: 6 } }}>
           <Stack spacing={4}>
             {showForm && <MessageForm onSubmitted={() => setShowForm(false)} />}

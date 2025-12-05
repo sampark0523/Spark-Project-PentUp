@@ -4,12 +4,18 @@
   right: 25px;
   z-index: 1000;
   width: clamp(160px, 20vw, 285px);
+  transition: width 0.3s ease;
+}
+
+.menuWrapper.expanded {
+  width: clamp(280px, 35vw, 450px);
 }
 
 .menuBg {
   width: 100%;
   height: auto;
   display: block;
+  transition: opacity 0.2s ease;
 }
 
 .menuLinks {
@@ -19,15 +25,77 @@
   left: 0;
   right: 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   padding: 0 18%;
+  gap: 20px;
 }
 
-.menuSearchPlaceholder {
-  display: block;
+/* When expanded, position input between "about" and search icon */
+.menuWrapper.expanded .menuLinks {
+  justify-content: flex-end;
+  padding-right: 12%;
+}
+
+.menuSearchInput {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #FFF;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: clamp(12px, 1.4vw, 20px);
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  min-width: 100px;
+  width: 140px;
+  max-width: 200px;
+  text-align: center;
+  padding: 0;
+  margin-right: 8px;
+}
+
+.menuSearchInput::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Clickable overlays for links and search icon in menu images */
+.menuLinkOverlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 18%;
+  width: 60px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  text-decoration: none;
+}
+
+.menuAboutOverlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(18% + 80px);
+  width: 60px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  text-decoration: none;
+}
+
+.menuSearchIconOverlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 8%;
   width: 28px;
-  height: 1em;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
 }
 
 .menuLink {
