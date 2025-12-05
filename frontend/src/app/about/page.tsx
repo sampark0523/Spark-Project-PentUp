@@ -37,7 +37,7 @@ export default function AboutPage() {
         {/* Left panel - About card SVG */}
         <div className={styles.aboutPanel}>
           <img
-            src="/assets/about_card/Group%2015.svg"
+            src="/assets/about_card/Group%2015.png"
             alt="About Pent Up"
             className={styles.aboutCard}
           />
@@ -158,7 +158,7 @@ export default function AboutPage() {
                 />
               </button>
               <img
-                src="/assets/about_fiona_popup/Pop-up%20about.svg"
+                src="/assets/about_fiona_popup/Pop-up%20about.png"
                 alt="Fiona Popup"
                 className={styles.popupImage}
               />
@@ -214,7 +214,7 @@ export default function AboutPage() {
                 />
               </button>
               <img
-                src="/assets/about_gia_popup/Gia%20Pop-up%20about.svg"
+                src="/assets/about_gia_popup/Gia%20Pop-up%20about%20(3).png"
                 alt="Gia Popup"
                 className={styles.popupImage}
               />
@@ -288,7 +288,7 @@ export default function AboutPage() {
                 />
               </button>
               <img
-                src="/assets/about_gordon_popup/gordon_popup.svg"
+                src="/assets/about_gordon_popup/Gordon%20Pop-up%20about.png"
                 alt="Gordon Popup"
                 className={styles.popupImage}
               />
