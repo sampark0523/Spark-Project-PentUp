@@ -266,8 +266,8 @@
 
 .exitButton {
   position: absolute;
-  top: 3.70%;
-  right: 2.25%;
+  top: 3.25%;
+  right: 2.20%;
   background: transparent;
   border: none;
   padding: 0;
@@ -292,6 +292,37 @@
   image-rendering: pixelated;
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
+}
+
+@media (max-width: 900px) {
+  .exitButton {
+    top: 3.1%;
+    right: 2.5%;
+  }
+
+  .exitButtonImage {
+    max-width: 35px;
+    max-height: 35px;
+  }
+}
+
+@media (max-width: 600px) {
+  .exitButton {
+    top: 3%;
+    right: 2%;
+  }
+
+  .exitButtonImage {
+    max-width: 26px;
+    max-height: 26px;
+  }
+}
+
+@media (max-width: 400px) {
+  .exitButtonImage {
+    max-width: 22px;
+    max-height: 22px;
+  }
 }
 
 /* 
@@ -532,11 +563,6 @@
 @media (max-width: 600px) {
   .popupContent {
     max-width: 95%;
-  }
-  
-  .exitButtonImage {
-    max-width: 40px;
-    max-height: 40px;
   }
   
   .samLinkedInLink {
