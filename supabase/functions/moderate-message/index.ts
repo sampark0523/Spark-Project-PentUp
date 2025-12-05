@@ -2,9 +2,6 @@
 
 // @ts-ignore - Deno is available at runtime in Supabase Edge Functions
 Deno.serve(async (req) => {
-    const TOXICITY_THRESHOLD = 0.7; // Toxicity threshold
-    
-    // Get the text from the request body
 	try {
 		const { text } = await req.json();
 
@@ -64,28 +61,17 @@ Deno.serve(async (req) => {
 			scores = result;
 		}
 
-		// Check if any toxicity label exceeds threshold
-		const isToxic = scores.some((r: any) => r.score > TOXICITY_THRESHOLD);
-
-		// Check for severe toxicity specifically
-		const severeToxic = scores.find((r: any) => r.label === "severe_toxic");
-		const isSevere = severeToxic?.score > 0.5;
-
-		// Check for moderate toxicity (toxic score between 0.5 and 0.7)
+		// Get the toxic score
 		const toxicScore = scores.find((r: any) => r.label === "toxic")?.score || 0;
-		const isModerate = toxicScore >= 0.5 && toxicScore <= 0.7;
 
-		// Flag messages that are either moderate or severe
-		const shouldFlag = isModerate || isSevere;
+		// Flag messages if toxicity score is over 0.9
+		const shouldFlag = toxicScore > 0.9;
 
 		return new Response(
 			JSON.stringify({
 				text,
 				scores: scores,
-				toxic: isToxic,
-				severe: shouldFlag, // Flag if moderate or severe
-				moderate: isModerate,
-				severeToxic: isSevere,
+				severe: shouldFlag,
 				toxicityScore: toxicScore,
 			}),
 			{
