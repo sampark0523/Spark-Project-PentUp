@@ -3,6 +3,7 @@
 import * as React from "react";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import EmotionRegistry from "@/lib/emotion-cache";
+import { SearchProvider } from "@/contexts/SearchContext";
 
 const theme = createTheme({
 	palette: {
@@ -16,7 +17,9 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
 		<EmotionRegistry>
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
-				{children}
+				<SearchProvider>
+					{children}
+				</SearchProvider>
 			</ThemeProvider>
 		</EmotionRegistry>
 	);
