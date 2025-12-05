@@ -92,7 +92,7 @@
   top: 0;
   bottom: 0;
   right: 8%;
-  width: 28px;
+  width: 48px;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -121,6 +121,11 @@
   .menuWrapper {
     top: 25px;
     right: 20px;
+  }
+
+  .menuSearchIconOverlay {
+    right: 6%;
+    width: 32px;
   }
 }
 
@@ -163,7 +168,7 @@
   }
 
   .menuSearchIconOverlay {
-    right: 6%;
-    width: 22px;
+    right: 2%;
+    width: 40px;
   }
 }
