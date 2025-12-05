@@ -17,7 +17,7 @@ export function Footer() {
 						Instagram
 					</a>
 					<span className={styles.contactSeparator}> • </span>
-					<a href="https://github.com/ziana-sundrani/pent_up" target="_blank" rel="noopener noreferrer" className={styles.contactLink}>
+					<a href="https://github.com/sampark0523/Spark-Project-PentUp" target="_blank" rel="noopener noreferrer" className={styles.contactLink}>
 						GitHub
 					</a>
 					<span className={styles.contactSeparator}> • </span>
@@ -33,7 +33,7 @@ export function Footer() {
 						Penn Clubs
 					</a>
 					<span className={styles.contactSeparator}> • </span>
-					<a href="https://pennspark.org/" target="_blank" rel="noopener noreferrer" className={styles.contactLink}>
+					<a href="https://spark-website-alpha.vercel.app/" target="_blank" rel="noopener noreferrer" className={styles.contactLink}>
 						Spark Website
 					</a>
 				</div>
