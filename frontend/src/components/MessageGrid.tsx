@@ -136,7 +136,7 @@ export function MessageGrid() {
 						>
 							<Typography
 								sx={{
-									fontSize: { xs: "0.8rem", sm: "0.85rem", md: "0.875rem" },
+									fontSize: { xs: "0.95rem", sm: "1.00rem", md: "1.10rem" },
 									lineHeight: 1.7,
 									color: "#111",
 									fontFamily: "Arial, Helvetica, sans-serif",
