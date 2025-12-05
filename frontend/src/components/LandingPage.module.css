@@ -1,13 +1,14 @@
 .landingContainer {
 	position: relative;
-	min-height: 100vh;
+	min-height: auto;
+	height: auto;
 	width: 100%;
 	display: flex;
 	align-items: flex-start;
 	justify-content: center;
 	background: #f5e6d3;
 	position: relative;
-	overflow: hidden;
+	overflow: visible;
 	padding: 0;
 }
 
@@ -74,7 +75,8 @@
 .envelopesContainer {
 	position: relative;
 	z-index: 5;
-	width: 100%;
+	width: min(100%, 1600px); /* keep container edge aligned with image edge */
+	margin: 0 auto;
 	height: auto;
 	display: flex;
 	align-items: flex-start;
