@@ -49,8 +49,8 @@
   font-weight: 700;
   line-height: normal;
   min-width: 100px;
-  width: 140px;
-  max-width: 200px;
+  width: 240px;
+  max-width: 280px;
   text-align: center;
   padding: 0;
   margin-right: 8px;
@@ -146,10 +146,10 @@
   }
 
   .menuSearchInput {
-    font-size: 11px;
+    font-size: 9px;
     min-width: 60px;
-    width: 80px;
-    max-width: 100px;
+    width: 120px;
+    max-width: 140px;
     margin-right: 4px;
   }
 
