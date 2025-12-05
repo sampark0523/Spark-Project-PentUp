@@ -55,7 +55,6 @@ async function sendApprovalEmail(messageId: number, recipients: string, body: st
 		}
 
 		const result = JSON.parse(responseText);
-		console.log('Approval email sent successfully:', result);
 	} catch (error) {
 		console.error('Failed to send approval email:', error);
 	}
