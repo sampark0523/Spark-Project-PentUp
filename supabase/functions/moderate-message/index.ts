@@ -67,17 +67,26 @@ Deno.serve(async (req) => {
 		// Check if any toxicity label exceeds threshold
 		const isToxic = scores.some((r: any) => r.score > TOXICITY_THRESHOLD);
 
-		// Also check for severe toxicity specifically
+		// Check for severe toxicity specifically
 		const severeToxic = scores.find((r: any) => r.label === "severe_toxic");
 		const isSevere = severeToxic?.score > 0.5;
+
+		// Check for moderate toxicity (toxic score between 0.5 and 0.7)
+		const toxicScore = scores.find((r: any) => r.label === "toxic")?.score || 0;
+		const isModerate = toxicScore >= 0.5 && toxicScore <= 0.7;
+
+		// Flag messages that are either moderate or severe
+		const shouldFlag = isModerate || isSevere;
 
 		return new Response(
 			JSON.stringify({
 				text,
 				scores: scores,
 				toxic: isToxic,
-				severe: isSevere,
-				toxicityScore: scores.find((r: any) => r.label === "toxic")?.score || 0,
+				severe: shouldFlag, // Flag if moderate or severe
+				moderate: isModerate,
+				severeToxic: isSevere,
+				toxicityScore: toxicScore,
 			}),
 			{
 				status: 200,
