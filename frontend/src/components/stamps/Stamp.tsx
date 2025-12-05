@@ -12,41 +12,46 @@ export function Stamp({ color, mascotImage }: StampProps) {
 		<Box
 			sx={{
 				position: "relative",
-				width: 44,
-				height: 44,
+				width: { xs: 32, sm: 38, md: 44 },
+				height: { xs: 32, sm: 38, md: 44 },
 				display: "flex",
 				alignItems: "center",
 				justifyContent: "center",
-				borderRadius: "6px",
+				borderRadius: { xs: "4px", sm: "5px", md: "6px" },
 				backgroundColor: color,
 				overflow: "hidden",
 			}}
 		>
 			{mascotImage ? (
 				// Display the mascot image
-				<Image
-					src={mascotImage}
-					alt="Mascot"
-					width={36}
-					height={36}
-					style={{
-						objectFit: "contain",
+				<Box
+					sx={{
 						position: "relative",
+						width: { xs: 26, sm: 30, md: 36 },
+						height: { xs: 26, sm: 30, md: 36 },
 						zIndex: 1,
 					}}
-				/>
+				>
+					<Image
+						src={mascotImage}
+						alt="Mascot"
+						fill
+						style={{
+							objectFit: "contain",
+						}}
+					/>
+				</Box>
 			) : (
 				// Fallback to stamp icon if no mascot
-				<svg
-					width="28"
-					height="22"
+				<Box
+					component="svg"
+					sx={{
+						width: { xs: 20, sm: 24, md: 28 },
+						height: { xs: 16, sm: 19, md: 22 },
+					}}
 					viewBox="0 0 77 62"
 					fill="none"
 					xmlns="http://www.w3.org/2000/svg"
-					style={{
-						position: "relative",
-						zIndex: 1,
-					}}
 				>
 					<path
 						d="M72.8167 57.4792H61.3008V61.3011H76.6386V42.1414H72.8167V57.4792Z"
@@ -84,7 +89,7 @@ export function Stamp({ color, mascotImage }: StampProps) {
 						d="M3.84703 3.82189H15.3378V0H0V15.3378H3.84703V3.82189Z"
 						fill="white"
 					/>
-				</svg>
+				</Box>
 			)}
 		</Box>
 	);

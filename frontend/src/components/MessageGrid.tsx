@@ -94,7 +94,7 @@ export function MessageGrid() {
 							sx={{
 								backgroundColor: headerColor,
 								p: { xs: 1, sm: 1.25, md: 1.5 },
-								pr: { xs: 6, sm: 7, md: 8 },
+								pr: { xs: 5, sm: 6, md: 7 },
 								display: "flex",
 								alignItems: "center",
 								justifyContent: "space-between",
@@ -120,7 +120,7 @@ export function MessageGrid() {
 								sx={{
 									position: "absolute",
 									top: 0,
-									right: 8,
+									right: { xs: 4, sm: 6, md: 8 },
 								}}
 							>
 								<Stamp color={headerColor} mascotImage={mascotImage} />
