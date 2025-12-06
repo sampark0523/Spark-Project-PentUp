@@ -18,6 +18,7 @@ Deno.serve(async (req) => {
 		// Support both GET (from email links) and POST requests
 		let messageId;
 		let token;
+		const authHeader = req.headers.get("Authorization");
 		
 		if (req.method === "GET") {
 			const url = new URL(req.url);
@@ -29,10 +30,31 @@ Deno.serve(async (req) => {
 			token = body.token;
 		}
 		
-		// Verify token for security
-		// @ts-ignore
-		const expectedToken = Deno.env.get("APPROVAL_TOKEN");
-		if (expectedToken && token !== expectedToken) {
+		// Verify authorization - either via Authorization header (authenticated user) or token (email link)
+		let isAuthorized = false;
+		
+		if (authHeader && authHeader.startsWith("Bearer ")) {
+			// Verify user session token
+			// @ts-ignore
+			const supabaseUrl = Deno.env.get("SUPABASE_URL");
+			// @ts-ignore
+			const supabaseAnonKey = Deno.env.get("SUPABASE_ANON_KEY");
+			
+			if (supabaseUrl && supabaseAnonKey) {
+				const { createClient } = await import("https://esm.sh/@supabase/supabase-js@2");
+				const supabase = createClient(supabaseUrl, supabaseAnonKey);
+				const userToken = authHeader.replace("Bearer ", "");
+				const { data: { user }, error: authError } = await supabase.auth.getUser(userToken);
+				isAuthorized = !authError && !!user;
+			}
+		} else if (token) {
+			// Verify approval token (for email links)
+			// @ts-ignore
+			const expectedToken = Deno.env.get("APPROVAL_TOKEN");
+			isAuthorized = !expectedToken || token === expectedToken;
+		}
+		
+		if (!isAuthorized) {
 			if (req.method === "GET") {
 				return new Response(
 					`<html><body><h1>Unauthorized</h1><p>Invalid token. Please use the link from your email.</p></body></html>`,
@@ -43,7 +65,7 @@ Deno.serve(async (req) => {
 				);
 			}
 			return new Response(
-				JSON.stringify({ error: "Unauthorized: Invalid token" }),
+				JSON.stringify({ error: "Unauthorized: Missing or invalid authorization" }),
 				{
 					status: 401,
 					headers: { "Content-Type": "application/json" },

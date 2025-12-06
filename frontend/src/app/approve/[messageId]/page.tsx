@@ -30,20 +30,11 @@ export default function ApprovePage() {
 					return;
 				}
 
-				const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-				if (!supabaseUrl) {
-					setStatus("error");
-					setMessage("Server configuration error");
-					return;
-				}
-
-				const response = await fetch(`${supabaseUrl}/functions/v1/approve-message`, {
+				const response = await fetch(`/api/messages/${messageId}/approve`, {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
-						"Authorization": `Bearer ${session.access_token}`,
 					},
-					body: JSON.stringify({ messageId }),
 				});
 
 				if (!response.ok) {

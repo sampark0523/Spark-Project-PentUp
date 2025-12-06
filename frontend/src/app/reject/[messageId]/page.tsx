@@ -30,25 +30,26 @@ export default function RejectPage() {
 					return;
 				}
 
-				const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-				if (!supabaseUrl) {
-					setStatus("error");
-					setMessage("Server configuration error");
-					return;
-				}
-
-				const response = await fetch(`${supabaseUrl}/functions/v1/reject-message`, {
+				console.log("Calling reject API for message:", messageId);
+				const response = await fetch(`/api/messages/${messageId}/reject`, {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
 						"Authorization": `Bearer ${session.access_token}`,
 					},
-					body: JSON.stringify({ messageId }),
 				});
 
+				console.log("Response status:", response.status);
 				if (!response.ok) {
-					const errorData = await response.json().catch(() => ({ error: "Unknown error" }));
-					throw new Error(errorData.error || `Request failed: ${response.status}`);
+					const errorText = await response.text();
+					console.error("Error response:", errorText);
+					let errorData;
+					try {
+						errorData = JSON.parse(errorText);
+					} catch {
+						errorData = { error: errorText || "Unknown error" };
+					}
+					throw new Error(errorData.error || errorData.message || `Request failed: ${response.status}`);
 				}
 
 				const result = await response.json();

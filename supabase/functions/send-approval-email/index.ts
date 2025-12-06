@@ -21,12 +21,16 @@ Deno.serve(async (req) => {
 		const supabaseUrl = Deno.env.get("SUPABASE_URL") || Deno.env.get("NEXT_PUBLIC_SUPABASE_URL");
 		// @ts-ignore
 		const supabaseAnonKey = Deno.env.get("SUPABASE_ANON_KEY") || Deno.env.get("NEXT_PUBLIC_SUPABASE_ANON_KEY");
+		// Use baseUrl (website URL) for approve/reject links, fallback to Edge Function URLs if not provided
+		const siteUrl = baseUrl || supabaseUrl;
+		const approveUrl = `${siteUrl}/approve/${messageId}`;
+		const rejectUrl = `${siteUrl}/reject/${messageId}`;
+		
+		// Also keep Edge Function URLs as backup for API calls
 		// @ts-ignore
 		const approvalToken = Deno.env.get("APPROVAL_TOKEN") || "default-token-change-me";
-		
-		// Include anon key and token in URL for security
-		const approveUrl = `${supabaseUrl}/functions/v1/approve-message?messageId=${messageId}&token=${approvalToken}&anonKey=${supabaseAnonKey}`;
-		const rejectUrl = `${supabaseUrl}/functions/v1/reject-message?messageId=${messageId}&token=${approvalToken}&anonKey=${supabaseAnonKey}`;
+		const approveApiUrl = `${supabaseUrl}/functions/v1/approve-message?messageId=${messageId}&token=${approvalToken}&anonKey=${supabaseAnonKey}`;
+		const rejectApiUrl = `${supabaseUrl}/functions/v1/reject-message?messageId=${messageId}&token=${approvalToken}&anonKey=${supabaseAnonKey}`;
 		
 		// Also include instructions for manual approval via Supabase dashboard
 		const supabaseDashboardUrl = supabaseUrl ? supabaseUrl.replace('.supabase.co', '').replace('https://', 'https://supabase.com/dashboard/project/') : 'https://supabase.com/dashboard';
@@ -40,24 +44,16 @@ Message: ${body}
 Color: ${color || '#f0f0f0'}
 
 TO APPROVE:
-Send a POST request to: ${approveUrl}
-Body: {"messageId": ${messageId}}
+Click here: ${approveUrl}
 
-Or use curl:
-curl -X POST ${approveUrl} \\
-  -H "Content-Type: application/json" \\
-  -H "Authorization: Bearer YOUR_SUPABASE_ANON_KEY" \\
-  -d '{"messageId": ${messageId}}'
+Or use the API directly:
+curl -X POST ${approveApiUrl}
 
 TO REJECT:
-Send a POST request to: ${rejectUrl}
-Body: {"messageId": ${messageId}}
+Click here: ${rejectUrl}
 
-Or use curl:
-curl -X POST ${rejectUrl} \\
-  -H "Content-Type: application/json" \\
-  -H "Authorization: Bearer YOUR_SUPABASE_ANON_KEY" \\
-  -d '{"messageId": ${messageId}}'
+Or use the API directly:
+curl -X POST ${rejectApiUrl}
 
 Alternatively, you can approve/reject directly in the Supabase dashboard:
 ${supabaseDashboardUrl} -> Table Editor -> messages -> Find ID ${messageId} -> Edit approved field
