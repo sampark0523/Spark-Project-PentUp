@@ -23,6 +23,14 @@ export default function Home() {
     }
   }, []);
 
+  // Clear flagged popup when a new message is submitted
+  const handleMessageSubmitted = React.useCallback(() => {
+    setShowFlaggedPopup(false);
+    setFlaggedMessage(null);
+    localStorage.removeItem('flaggedMessage');
+    setShowForm(false);
+  }, []);
+
   const contentBoxSx = {
     minHeight: "100vh",
     bgcolor: "#f5e6d3",
@@ -38,7 +46,7 @@ export default function Home() {
       <Box sx={contentBoxSx} data-message-content>
         <Container maxWidth="lg" sx={{ py: 6, px: { xs: 3, sm: 4, md: 6 } }}>
           <Stack spacing={4}>
-            {showForm && <MessageForm onSubmitted={() => setShowForm(false)} />}
+            {showForm && <MessageForm onSubmitted={handleMessageSubmitted} />}
             <MessageGrid />
           </Stack>
         </Container>

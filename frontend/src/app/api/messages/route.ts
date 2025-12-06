@@ -175,7 +175,7 @@ export async function POST(req: NextRequest) {
 			return NextResponse.json(
 				{ 
 					...data,
-					message: "Your message has been flagged and is waiting for approval from a moderator. You will be notified once it's reviewed." 
+					message: "Your message has been flagged and is waiting for approval from a moderator. If approved, your message will be posted to the board." 
 				}, 
 				{ status: 201 }
 			);

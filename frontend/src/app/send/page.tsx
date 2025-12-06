@@ -41,6 +41,11 @@ export default function SendMessagePage() {
 
 		setLoading(true);
 		setError(null);
+		
+		// Clear any existing flagged message popup when submitting a new message
+		localStorage.removeItem('flaggedMessage');
+		setShowFlaggedPopup(false);
+		setFlaggedMessage(null);
 
 		try {
 			// Check if user is authenticated
@@ -552,6 +557,11 @@ export default function SendMessagePage() {
 
 							if (session) {
 								setLoading(true);
+								
+								// Clear any existing flagged message popup when submitting
+								localStorage.removeItem('flaggedMessage');
+								setShowFlaggedPopup(false);
+								setFlaggedMessage(null);
 
 								// Submit the pending message
 								const res = await fetch('/api/messages', {

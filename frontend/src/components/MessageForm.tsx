@@ -68,6 +68,10 @@ export function MessageForm({ onSubmitted }: { onSubmitted?: () => void }) {
 		setLoading(true);
 		setError(null);
 		setInfoMessage(null);
+		
+		// Clear any existing flagged message popup when submitting a new message
+		localStorage.removeItem('flaggedMessage');
+		
 		try {
 			const res = await fetch(`/api/messages`, {
 				method: "POST",
