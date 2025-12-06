@@ -613,7 +613,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  padding: 2.5rem 1.25rem 13rem;
+  padding: 2.5rem 1.25rem 15rem;
   z-index: 2;
 }
 
@@ -678,13 +678,13 @@
 
 @media (max-width: 900px) {
   .contactInfoOverlay {
-    padding: 2rem 1rem 5rem;
+    padding: 2rem 1rem 3rem;
   }
 }
 
 @media (max-width: 600px) {
   .contactInfoOverlay {
-    padding: 1.5rem 1rem 3rem;
+    padding: 1.5rem 1rem 1.5rem;
   }
 
   .contactLink {
@@ -702,7 +702,7 @@
 
 @media (max-width: 400px) {
   .contactInfoOverlay {
-    padding: 1rem 0.75rem 2.125rem;
+    padding: 1rem 0.75rem 1rem;
   }
   
   .contactLinks {
