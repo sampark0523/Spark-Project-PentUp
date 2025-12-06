@@ -31,6 +31,13 @@ export default function Home() {
     setShowForm(false);
   }, []);
 
+  // Handle dismissing the popup - clear state and localStorage
+  const handleDismissPopup = React.useCallback(() => {
+    setShowFlaggedPopup(false);
+    setFlaggedMessage(null);
+    localStorage.removeItem('flaggedMessage');
+  }, []);
+
   const contentBoxSx = {
     minHeight: "100vh",
     bgcolor: "#f5e6d3",
@@ -58,10 +65,10 @@ export default function Home() {
         open={showFlaggedPopup}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         autoHideDuration={6000}
-        onClose={() => setShowFlaggedPopup(false)}
+        onClose={handleDismissPopup}
       >
         <Alert 
-          onClose={() => setShowFlaggedPopup(false)} 
+          onClose={handleDismissPopup} 
           severity="warning" 
           sx={{ width: "100%" }}
         >

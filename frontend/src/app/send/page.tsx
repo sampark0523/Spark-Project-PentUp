@@ -32,6 +32,13 @@ export default function SendMessagePage() {
 		}
 	}, []);
 
+	// Handle dismissing the popup - clear state and localStorage
+	const handleDismissPopup = React.useCallback(() => {
+		setShowFlaggedPopup(false);
+		setFlaggedMessage(null);
+		localStorage.removeItem('flaggedMessage');
+	}, []);
+
 	const handleSubmit = async () => {
 		// Validate fields FIRST
 		if (!recipient || !message) {
@@ -616,10 +623,10 @@ export default function SendMessagePage() {
 				open={showFlaggedPopup}
 				anchorOrigin={{ vertical: "top", horizontal: "center" }}
 				autoHideDuration={6000}
-				onClose={() => setShowFlaggedPopup(false)}
+				onClose={handleDismissPopup}
 			>
 				<Alert 
-					onClose={() => setShowFlaggedPopup(false)} 
+					onClose={handleDismissPopup} 
 					severity="warning" 
 					sx={{ width: "100%" }}
 				>
